@@ -1,12 +1,12 @@
 # Set Up
 
-Before we launch into the server setup, let's quick review where certain files are going to go:
+Before we launch into the server setup, let's quickly review where certain files are going to go:
 
 ## File Locations and Directory Structure
 
 According to the [JuptyerHub docs](https://jupyterhub.readthedocs.io/en/stable/installation-basics.html):
 
-The folks at JupyterHub recommend that we put all of the files used by JupyterHub into standard UNIX filesystem locations:
+The folks at JupyterHub recommend that we put all of the files used by JupyterHub into standard UNIX filesystem locations on our server:
 
 * ```/srv/jupyterhub``` for all security and runtime files
 * ```/etc/jupyterhub``` for all configuration files

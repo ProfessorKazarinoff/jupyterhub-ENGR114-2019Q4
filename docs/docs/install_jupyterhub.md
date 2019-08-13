@@ -43,7 +43,7 @@ To downland and install Miniconda on the server, we'll use the ```curl``` comman
 
 ```text
 $ cd /tmp
-$ curl -O $ https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 $ sudo bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
@@ -52,6 +52,14 @@ During the Miniconda install, we need to specify following installation director
 ```text
 /opt/miniconda3/
 ```
+When the Miniconda install finished, the installer asked
+
+```text
+Do you wish the installer to initialize Miniconda3
+by running conda init? [yes|no]
+```
+
+I selected ```yes``` to run conda init.
 
 We want to be able to run **conda** from the command line. So make sure to allow **Miniconda** to append your PATH during the installation. After installation, we need to reload the ```.bashrc``` file because **Miniconda** made changes to our ```.bashrc``` during the install (when it added **conda** to our PATH).
 
@@ -130,7 +138,7 @@ I had trouble with conda hanging during the JupterHub installation, and I wonder
 When I tried to make a Python 3.7 conda env and install JupyterHub into it, conda downgraded Python from 3.7 to 3.6. So I think the conda env should have a Python 3.6 base. Also don't forget to install **xlrd**, this package is needed for **pandas** to read ```.xlsx``` files. 
 
 ```text
-$ conda create -n jupyerhubenv python=3.6
+$ conda create -n jupyerhubenv python=3.7
 $ conda activate jupyterhubenv
 (jupyterhubenv)$ conda install numpy matplotlib pandas scipy sympy seaborn bokeh holoviews pyserial xlrd jupyter notebook 
 (jupyterhubenv)$ conda install -c conda-forge pint altair

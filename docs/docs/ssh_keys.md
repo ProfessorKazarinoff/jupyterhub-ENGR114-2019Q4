@@ -1,6 +1,6 @@
 # Create SSH keys
 
-SSH keys allow us to log into the cloud server which will run JupyterHub. SSH keys come in pairs, a private key and a public key. The public key will be stored on the JupyterHub server and the private key will stay on our local machine. 
+SSH keys allow us to log into the cloud server which will run JupyterHub. SSH keys come in pairs, a private key and a public key. The public key will be stored on the JupyterHub cloud server and the private key will stay secure on our local machine. 
 
 [TOC]
 
@@ -12,11 +12,11 @@ I tried to create and save the SSH keys to the Digital Ocean (the cloud server p
 
 **It was a BIG PAIN adding SSH keys after the server started for the first time.** 
 
-I ended up copying the public SSH key into pastebin.com, logging onto the server with the Digital Ocean console and used ```wget``` to bring a textfile of the SSH key from pastebin.com onto the server and then ```mv``` to copy the key name into the right location.
+I ended up copying the public SSH key into pastebin.com, logging onto the server with the Digital Ocean console and used ```wget``` to bring a textfile of the SSH key from pastebin.com onto the server and then used ```mv``` to copy the key name into the right location.
 
-I'm pretty sure that pasting a public SSH key into pastebin.com is not the best way to initially set up a server. So to make sure that doesn't happen again, we are going to generate the SSH keys first and set up the server second. 
+I'm pretty sure pasting a public SSH key into pastebin.com is not the best way to initially set up a cloud server. So to make sure that doesn't happen again, we are going to generate the SSH keys first, and set up the server second. 
 
-SSH keys are needed to use PuTTY (regular PuTTY not PuTTYgen) to log into the server. Since I'm working on Windows 10, using PuTTYgen (a program that comes with PuTTY that generates SSH keys) seems like the easiest solution. 
+SSH keys are needed to use PuTTY (regular PuTTY not PuTTYgen) to log into the server. Since I'm working on Windows 10, using PuTTYgen (a program that comes with PuTTY which generates SSH keys) seems like the easiest solution. 
 
 ## Download PuTTY
 
@@ -24,12 +24,11 @@ I already have PuTTY installed on my Windows 10 machines at home and at work. Th
 
 [Download PuTTY](https://www.putty.org/)
 
-PuTTY seems to want you to install lots of extra stuff when you run the installer. I didn't install any of the "offers" that popped up during installation.
-
+PuTTY seems to want to install lots of extra stuff when you run the installer. I didn't install any of the "offers" that popped up during installation.
 
 ## Start PuTTYgen and create SSH key
 
-I went through [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-putty-on-digitalocean-droplets-windows-users) about how to set up SSH keys on Windows 10 for Digital Ocean when I created the first SSH key.
+I went through [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-putty-on-digitalocean-droplets-windows-users) to learn how to set up SSH keys on Windows 10 for Digital Ocean when I created the first SSH key.
 
 Using the Windows start menu, open PuTTYgen (not regular PuTTY):
 
