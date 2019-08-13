@@ -1,4 +1,4 @@
-site_name: ENGR114-JupyterHub-Deployment
+site_name: JupyterHub-Deployment-ENGR114-2019Q4
 
 # Configuration
 theme:
@@ -20,7 +20,7 @@ markdown_extensions:
   - footnotes
   - toc
   - pymdownx.smartsymbols
-repo_url: https://github.com/ProfessorKazarinoff/jupyterhub-engr114
+repo_url: https://github.com/ProfessorKazarinoff/jupyterhub-ENGR114-2019Q4
 extra_css: 
     - static/css/toc.css
 copyright: 'Copyright &copy; 2018 Peter D. Kazarinoff'
