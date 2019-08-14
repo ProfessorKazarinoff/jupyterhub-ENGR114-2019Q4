@@ -1,6 +1,6 @@
 # Create a Cookie Secret and Proxy Auth Token
 
-In addition to an SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token be created. 
+In addition to an SSL certificate, the [Jupyter Hub docs on security basics](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html) specify that a cookie secret and poxy auth token should be created. 
 
 [TOC]
 
@@ -10,7 +10,7 @@ To create the cookie secret file:
 
 ```text
 $ cd /srv
-$ mkdir jupyterhub
+$ sudo mkdir jupyterhub
 $ cd jupyterhub
 $ sudo touch jupyterhub_cookie_secret
 $ sudo chown :sudo jupyterhub_cookie_secret
@@ -60,7 +60,7 @@ Now when we list the contents of ```~/srv/jupyterhub``` we see:
 
 Let's also generate a ```dhparam.pem``` file. I'm still not exactly sure what the ```dhparam.pem``` file is, but I think it's good for security. 
 
-First we need to ```cd``` into the ```/srv/jupyterhub``` directory. Next  ```touch``` a new file called ```dhparam.pem```. Then use ```chown``` and ```chmod``` to modify permissions. We need to be able to wirte to the file. The ```openssl dhparam``` command generates the .pem file. Finally we modify the permissions again to ```600``` (owner-only rw). Note the location of this file as we will add it to the Nginx config file.
+The ```dhparam.pem``` file will be housed in the same ```/srv/jupyterhub``` directory that stores our proxy auth token and cookie secret. We use the same seqence as we did with the previous two files:  ```touch``` a new file called ```dhparam.pem```, then use ```chown``` and ```chmod``` to modify permissions. The ```openssl dhparam``` command generates the .pem file. After the command is run, it says ```This is going to take a long time```, but it doesn't really take all that long. Maybe a minute or two. Finally we modify the permissions again to ```600``` (owner-only rw). Note the location of this file as we will add it to the Nginx config later on.
 
 ```text
 $ cd /srv/jupyterhub

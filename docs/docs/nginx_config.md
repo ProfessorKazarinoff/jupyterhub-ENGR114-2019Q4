@@ -2,7 +2,7 @@
 
 The next step is to modify the Nginx config file so that Nginx uses our SSL certificates and routes requests on to JupyterHub. 
 
-The Nginx configuration step was the hardest part for me when I set up the first JupyterHub server. The Nginx config file isn't Python code or a bash script. I went through many different configurations until I finally got one that worked. 
+The Nginx configuration step was the hardest part for me when I set up my first JupyterHub server. The Nginx config file isn't Python code or a bash script. I went through many different variations until I finally got a config file that worked. 
 
 The big initial problem was that I copied the sample Nginx config that's up on the JupyterHub docs. But the Nginx config posted on the JupyterHub docs is not a complete Nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.
 
@@ -19,7 +19,7 @@ fastcgi_params  mime.types  scgi_params   snippets         win-utf
 $ sudo nano nginx.conf
 ```
 
-The nginx config that eventually worked for me is below. It can also be found [here](https://github.com/ProfessorKazarinoff/jupyterhub-engr114/blob/master/nginx.conf).
+The nginx config that eventually worked for me is below. It can also be found [here](https://github.com/ProfessorKazarinoff/jupyterhub-ENGR114-2019Q4/blob/master/nginx.conf).
 
 Note the line which shows the path to the SSL certificates. This will change based on your domain name and where certbot saved the .pem files to. Remember to change the domain name in the line ```server_name mydomain.org;``` to your domain name.
 
@@ -47,6 +47,7 @@ http {
     # All regular http requests on port 80 become SSL/HTTPS requests on port 32
     server {
         listen 80;
+        # !!! make sure to change this to your domain !!!
         server_name mydomain.org;
         # Tell all requests to port 80 to be 302 redirected to HTTPS
         return 302 https://$host$request_uri;
@@ -55,11 +56,12 @@ http {
         #listen 443 ssl default_server;
         listen 443;
         ssl on;
-        # !!! make sure to change to your domain name !!!
+        # !!! make sure to change this to your domain !!!
         server_name mydomain.org;
         ## SSL Protocals
-        ssl_certificate /etc/letsencrypt/live/engr114.org/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/engr114.org/privkey.pem;
+        # !!! make sure to change this to your domain !!!
+        ssl_certificate /etc/letsencrypt/live/mydomain.org/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/mydomain.org/privkey.pem;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_prefer_server_ciphers on;
         ssl_dhparam /srv/jupyterhub/dhparam.pem;
@@ -89,7 +91,6 @@ http {
     }
 }
 
-
 ```
 Save and exit with [Ctrl] + [x] and [Enter]
 
@@ -104,13 +105,13 @@ $ sudo systemctl status nginx
 # [ctrl-c] to exit
 ```
 
-If you have trouble with the restart, a useful command is
+If you have trouble with the restart, a useful command is:
 
 ```text
 $ nginx -t
 ```
 
-When we browse to our domain name, we can see Nginx is running.
+When we browse to our domain name, we can see Nginx is running. Make sure to browse to ```https://mydomain.org``` and not ```https://www.mydomain.org```. The cirtbot ssl cirtificut we got is only for ```https://mydomain.org``` and not the url that starts with ```www.```.
 
 ![nginx welcome page](images/welcome_to_nginx.png)
 

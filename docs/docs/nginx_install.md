@@ -1,10 +1,10 @@
 # Install Nginx
 
-Now that the domain name is set up, and we have our SSL keys, the next step is to install and configure Nginx. 
+Now that the domain name is set up, and we have our SSL cirt and the three security files, the next step is to install and configure Nginx. 
 
 Nginx is an open-source web server that can handle many concurrent web connections at the same time. For the Nginx installation, I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean.
 
-Use PuTTY to connect to the server with the non-root sudo user ```peter``` we set up before. Once logged in, we can update the system and install Nginx.
+Use PuTTY to connect to the server with the non-root sudo user we set up when we created the server. Once logged in, we can update the system and install Nginx.
 
 ```text
 $ sudo apt-get update
@@ -44,20 +44,18 @@ $ sudo ufw status
 
 Note the output shows ufw allows Nginx Full and requests over port 8000. We opened port 8000 earlier, so we could see how JupyterHub works without a domain name or SSL.  Once we get Nginx running and hooked up to JupyterHub, we need to remember to close off port 8000 in ufw.
 
-```
+```text
 Status: active
 
 To                         Action      From
 --                         ------      ----
-22                         LIMIT       Anywhere
-2375/tcp                   ALLOW       Anywhere
-2376/tcp                   ALLOW       Anywhere
+OpenSSH                    ALLOW       Anywhere
 8000                       ALLOW       Anywhere
+80                         ALLOW       Anywhere
 Nginx Full                 ALLOW       Anywhere
-22 (v6)                    LIMIT       Anywhere (v6)
-2375/tcp (v6)              ALLOW       Anywhere (v6)
-2376/tcp (v6)              ALLOW       Anywhere (v6)
+OpenSSH (v6)               ALLOW       Anywhere (v6)
 8000 (v6)                  ALLOW       Anywhere (v6)
+80 (v6)                    ALLOW       Anywhere (v6)
 Nginx Full (v6)            ALLOW       Anywhere (v6)
 ```
 

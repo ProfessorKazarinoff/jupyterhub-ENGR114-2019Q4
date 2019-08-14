@@ -1,23 +1,32 @@
 # Obtain SSL Certificates
 
-With a domain name hooked up to our server, now we'l be able to obtain an SSL certificate. I followed [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon) to install **certbot**, a program used to generate SSL certificates. 
+Because we have a qualified domain name hooked up to our server, we'll be able to obtain an SSL certificate. I followed [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon) to install **certbot**, a program used to generate SSL certificates. 
 
 [TOC]
 
 ## Install and run certbot
 
-We'll use certbot to obtain a standalone SSL certificate. Install certbot, modify permissions, and run certbot to obtain the SSL certificate.
+We'll use certbot to obtain a standalone SSL certificate. 
+
+But wait- we need to make sure that port 80 is open on the ufw firewall. If port 80 is closed, cirtbot won't be able to verify that our domain name is correctly configured. So before running cirtbot, make sure to open port 80.
 
 ```text
+$ sudo ufw allow 80
+$ sudo ufw status
+```
+
+Now use the commands below to install certbot, modify permissions, and run certbot to obtain an SSL certificate. Make sure to replace ```mydomain.org``` with your domain name.
+
+```text.
 $ cd ~
 $ mkdir certbot
 $ cd certbot
 $ wget https://dl.eff.org/certbot-auto
 $ chmod a+x certbot-auto
-$ ./certbot-auto certonly --standalone -d mydomain.com
+$ ./certbot-auto certonly --standalone -d mydomain.org
 ```
 
-If certbot worked, and we get our SSL certificate- the output looks something like:
+If certbot worked, and we get our SSL certificate- the output looks something like below:
 
 ```text
 IMPORTANT NOTES:
@@ -40,6 +49,7 @@ $ ls
 accounts  archive  csr  keys  live  renewal  renewal-hooks
 $ sudo chmod 777 -R archive/
 $ sudo chmod 777 -R live/
+$ ls -la
 ```
 
 ## Next Steps

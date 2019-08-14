@@ -6,11 +6,11 @@ After we verify JupyterHub is working with all the default settings, we need to 
 
 ## Link domain name to server IP address
 
-When we started JupyterHub in the previous step, it ran, we could log in, and we could run Python code. What's not to like, right? Well, security is the big problem. 
+When we started JupyterHub in the previous step, it ran, we could log in, and we could run Python code. What's not to like, right? **Well, security is the big problem.** 
 
 In the initial setup, JupyterHub was running under regular http, not https. With a web application that has usernames and passwords, like JupyterHub, having https and SSL security is best (or maybe manditory). 
 
-In order to use https, we need to generate an SSL certificate. The SSL certificate should correspond to the domain name linked to our server. Therefore, the first step on our way to SSL security, is purchasing a domain name and pointing the domain name it at the Digital Ocean DNS servers. Then we'll link the domain name to our JupyterHub server.
+In order to use https, we need to generate an SSL certificate. The SSL certificate should correspond to the domain name linked to our server. Therefore, the first step on our way to SSL security, is purchasing a domain name and pointing the domain name at the Digital Ocean DNS servers. Then we'll link the domain name to our JupyterHub server.
 
 ## Google Domains
 
@@ -24,7 +24,7 @@ To add a set of custom name servers using the Google Domains dashboard, click th
 
 The name servers to add are:
 
-```
+```text
 ns1.digitalocean.com
 ns2.digitalocean.com
 ns3.digitalocean.com
@@ -51,6 +51,8 @@ This brings up a panel where we can add a DNS record. I want the JupyterHub serv
 I entered ```@``` in the text field labeled [Enter @ or hostname]. Then selected the Droplet (our JupyterHub server) that the web address will route to.
 
 ![DO Domains/DNS](images/DO_sub_domain.png)
+
+I also entered ```www``` in the text field [Enter @ or hostname], then selected the JupyterHub droplet like before. This way ```www.mydomain.org``` will route to our JupyterHub server.
  
  After completing this step, there will be a couple of new DNS records. The results will look something like the screen capture below:
  
@@ -62,6 +64,6 @@ The first time I set up DNS on Digital Ocean, I added the custom DNS servers to 
 
 ## Next Steps
 
-The next step is to obtain an SSL certificate so we can SSL security and https instead of http.
+The next step is to obtain an SSL certificate so we can add SSL security and use https instead of http.
 
 <br>

@@ -8,21 +8,24 @@ Next, we'll create a ```jupyterhub_config.py``` file and modify it to include ou
 
 We'll create the JupyterHub config file in the ```/etc/jupyterhub``` directory. After the directory is created, we need to modify the directory permissions. Then ```cd``` into it create the config file with ```jupyterhub --generate-config```. Make sure you are in the ```(jupyterhubenv)``` virtual environment when you run the command.  
 
-```
+```text
 $ cd /etc
-$ mkdir jupyterhub
+$ sudo mkdir jupyterhub
 $ sudo chown -R root:peter jupyterhub/
 $ sudo chmod -R g+rwx jupyterhub/
 $ cd jupyterhub
 $ conda activate jupyterhubenv
 (jupyterhubenv)$ jupyterhub --generate-config
+Writing default config to: jupyterhub_config.py
+$ ls
+jupyterhub_config.py
 ```
 
 ## Modify jupyterhub_config.py
 
 Now we'll modify the ```jupyterhub_config.py``` file to allow local spawners and include our user ```peter``` as an admin user:
 
-```
+```text
 $ nano jupyterhub_config.py
 ```
 
@@ -47,7 +50,7 @@ c.Authenticator.admin_users = {'peter'}
 
 <br>
 
-## Restart nginx and start jupyterhub, see if we can login
+## Restart nginx and start JupyterHub, see if we can login
 
 Now we'll restart Nginx and start JupyterHub. Not that this time when we start JupyterHub we don't need to use the ```--no-ssl``` flag. This is because we have SSL running on nginx. 
 
