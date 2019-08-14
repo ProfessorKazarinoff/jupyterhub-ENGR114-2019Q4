@@ -135,7 +135,13 @@ For this JupyterHub install, we are going to create a conda environment (a virtu
 
 I had trouble with conda hanging during the JupterHub installation, and I wondered if it had something to do with the Anaconda installation being so large. (Really, now I think it might also have something to do with Python version 3.7). 
 
-When I tried to make a Python 3.7 conda env and install JupyterHub into it, conda downgraded Python from 3.7 to 3.6. So I think the conda env should have a Python 3.6 base. Also don't forget to install **xlrd**, this package is needed for **pandas** to read ```.xlsx``` files. 
+In a previous JupyterHub installation, when I tried to make a Python 3.7 conda environment and install JupyterHub into it, conda downgraded Python from 3.7 to 3.6. 
+
+In Fall 2019, I am pretty sure that JupyterHub runs on Python 3.7, but I still had trouble installing conda packages into the conda environment I created based on Python 3.7. When I tried to install conda packages into the environment I recieved "can't access such and such file at .gobledegook". But when I closed the terminal, took a 5 hour break, and opened up a new terminal, I could install conda packages just fine. Maybe just logging in and out worked? I'm not really sure. 
+
+But the conda environment was created with Python 3.7 and now I can install packages into it, so I'll count that as a win. Maybe logging out and back in does the trick.
+
+Note: Don't forget to install **xlrd**, this package is needed for **pandas** to read ```.xlsx``` files. 
 
 ```text
 $ conda create -n jupyerhubenv python=3.7
@@ -146,9 +152,35 @@ $ conda activate jupyterhubenv
 (jupyterhubenv)$ conda install -c conda-forge jupyterhub
 ```
 
+Now try ```conda list``` and see all of the packages that are installed in ```(jupyterhubenv).
+
+```text
+(jupyterhubenv)$ conda list
+# packages in environment at /opt/miniconda3/envs/jupyterhubenv:
+#
+# Name                    Version                   Build  Channel
+_libgcc_mutex             0.1                        main
+alembic                   1.0.11                     py_0    conda-forge
+altair                    3.2.0                    py37_0    conda-forge
+...
 <br>
 
 ## Run a very unsecured instance of Jupyter Hub just to see if it works
+
+So... This might not be a good idea, but let's see if JupyterHub works. We can run JupyterHub on our server, but the ufw firewall is blocking port 8000. We can open port 8000 using the command below.
+
+```text
+$ sudo ufw allow 8000
+$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+8000                       ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+8000 (v6)                  ALLOW       Anywhere (v6)
+```
 
 OK let's give JupyterHub a whirl. We'll start JupterHub for the first time. Note the ```--no-ssl``` flag at the end of the command. This flag needs to be included or you won't be able to browse to the server. Also note we have to be our ```(jupyterhubenv)``` virtual environment active when we run the command. 
 
@@ -156,25 +188,7 @@ OK let's give JupyterHub a whirl. We'll start JupterHub for the first time. Note
 $(jupyterhubenv) jupyterhub --no-ssl
 ```
 
-We see some output in the PuTTY window. The last line is something like ```JupyterHub is now running at http://:8000/```. The first time I set up JupyterHub, I wasn't able to see the site using a web browser. No web page loaded, and the connection timed out.
-
-![anaconda in start menu](images/site_can't_be_reached.png)
-
-Why? It turns out Digital Ocean installs a firewall called **ufw** by default and turns the **ufw** firewall on. When the server was created, ufw was configured to only allow incoming connections on ports 22, 80 and 433. This output is shown when we first log into the Digitial Ocean server:
-
-```text
-"ufw" has been enabled. All ports except 22 (SSH), 80 (http) and 443 (https)
-have been blocked by default.
-```
-
-But **JupyterHub runs on port 8000** - it tells us so when JupyterHub starts. So we need to configure **ufw** to allow connections on port 8000 (at least for now, just to see if JupyterHub works). 
-
-To allow communication on port 8000 and start JupyterHub, type:
-
-```text
-$ sudo ufw allow 8000
-$ jupyterhub --no-ssl
-```
+We see some output in the PuTTY window. The last line is something like ```JupyterHub is now running at http://:8000/```. The first time I set up JupyterHub, I wasn't able to see the site using a web browser. No web page loaded, and the connection timed out. Opening port 8000 did the trick.
 
 Now we can browse to the server IP address of our Digital Ocean Droplet appended with ```:8000```. The web address should look something like: http://165.228.68.178:8000. You can find the IP address of the server by going into the Digital Ocean dashboard. 
 
@@ -191,12 +205,27 @@ You should see the typical notebook file browser with all the files you can see 
 
 <br>
 
-## Quick! Log out and shut down jupyterhub
+## Quick! Log out and shut down JupyterHub
 
 !!! warning
     <strong>Warning!</strong> You should not run JupyterHub without SSL encryption on a public network.
 
-**Quick! Log out and shut down jupyterhub**. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop JupyterHub.
+**Quick! Log out and shut down JupyterHub**. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop JupyterHub.
+
+After I shut the JupyterHub instance down, I re-blocked port 800 with the command below.
+
+```text
+$ sudo ufw deny 8000
+$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+8000                       DENY        Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+8000 (v6)                  DENY        Anywhere (v6)
+```
 
 ## Next Steps
 
