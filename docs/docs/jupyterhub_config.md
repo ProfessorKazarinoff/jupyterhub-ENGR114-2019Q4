@@ -34,10 +34,8 @@ There will be a lot of commented out text in the ```jupyterhub_config.py``` file
 ```python
 # /etc/jupyterhub/jupyterhub_config.py
 
-import os
 c = get_config()
 c.JupyterHub.log_level = 10
-c.Spawner.cmd = '/home/peter/miniconda3/envs/jupyterhubenv/bin/jupyterhub-singleuser'
 
 # Cookie Secret Files
 c.JupyterHub.cookie_secret_file = '/srv/jupyterhub/jupyterhub_cookie_secret'
