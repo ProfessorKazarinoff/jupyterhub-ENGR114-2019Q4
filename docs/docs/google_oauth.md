@@ -1,14 +1,14 @@
 # Google Authentication
 
-Now that the GitHub authenticator works, we are going to get into the weeds of getting the Google authenticator to work. 
+Now that we have JupyterHub running as a system service and we can log onto JupyterHub with the local PAM (regular linux usernames and passwords) authenticator, we are going to get into the weeds of getting the Google authenticator to work. 
 
-Why Google authenticator instead of GitHub? Our college uses the gmail suite for both staff and students. When students log onto their college email, they are logging into gmail. Students can use Google calendar and Google drive with their college email account as well. So it is probably best that students log into JuypterHub using the same Google login that they use to access their college email, Google drive and calendar. 
+Why Google authenticator instead of local PAM authentication? Our college uses the Gmail suite for both staff and students. When students log onto their college email, they are logging into Gmail. Students can use Google Calendar and Google Drive with their college email account as well. So it is probably best that students log into JuypterHub using the same Google login they use to access their college email, Google Drive and Calendar. 
 
 [TOC]
 
 ## Google OAuth Instance
 
-To allow students to use Google usernames and passwords to log into JupyterHub, the first thing we need to do is set up a Google OAuth instance. I set up Google OAuth instance using my personal gmail account, rather than my college gmail account. Some parts of Google suite are not available in my college profile, like YouTube and developer tabs. 
+To allow students to use Google usernames and passwords to log into JupyterHub, the first thing we need to do is set up a Google OAuth instance. I set up Google OAuth instance using my personal Gmail account, rather than my college Gmail account. Some parts of the Google Apps Suite are not available in my college profile, like YouTube and developer tabs. 
 
 To obtain the Google OAuth credentials, we need to log into the Google API console [https://console.developers.google.com/](https://console.developers.google.com/) and select [Credentials] on the lefthand menu.
 
@@ -34,34 +34,132 @@ After creating a new set of Google OAuth credentials, note the:
  
  The client ID and client secret strings will be included in our revised JupyterHub configuration.
 
+ This deployment, I also downloaded a .json file which contains the Client ID and Client secret strings from the Google Developer Console. We'll upload the .json file to our JupyterHub server and use Python's **json** module to read file. 
+
+The .json file from the Google Developer console has the following format:
+
+```text
+{
+    "web": {
+        "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com",
+        "project_id": "intense-agency-89620",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "redirect_uris": [
+            "https://mydomain.org/hub/oauth_callback"
+        ]
+    }
+}
+```
+
+!!! warning
+    Add any files with secret credentials like google_outh_credentials.json to the .gitignore file under source control. **Keep private credentials private**
+
+We can use Python's json module to pull out the ```"client_id"``` string, the ```"client_secret"``` string and the ```"redirect_uris"``` string.
+
+The general format for loading a json file into a Python dictionary is below:
+
+```python
+with open('/etc/jupyterhub/google_oauth_credentials.json') as f:
+    google_oauth = json.load(f)
+```
+
+Then we can use the ```google_oauth``` dictionary and access the data within it using regular Python dictionary access methods. The syntax is below:
+
+```python
+c.LocalGoogleOAuthenticator.client_id = google_oauth['web']['client_id']
+```
+
+Let's also build a ```college_id.json``` file that contains our college domain and college name. We can pull these strings out with Python's json module too. 
+
+The ```college_id.json``` file has the format below:
+
+```text
+{
+    "domain": "mycollege.edu",
+    "name": "My College Name"
+}
+
+```
+
+We can pull out the ```"domain"``` and ```"name"``` from ```college_id.json``` with the following Python code:
+
+```python
+with open('/etc/jupyterhub/college_id.json') as f:
+    college_id = json.load(f)
+c.LocalGoogleOAuthenticator.hosted_domain = college_id['domain']
+c.LocalGoogleOAuthenticator.login_service = college_id['name']
+```
+
+Before we can use the ```google_oauth_credentials.json``` and ```college_id.json``` in our JupyterHub configuration, we need to upload these files to the server. I moved the files over with FileZilla.
+
+After the files are moved over, you should be able to see a couple files in the ```/etc/jupyterhub``` directory on the server.
+
+```text
+$ cd /etc/jupyterhub
+$ ls
+college_id.json                jupyterhub.sqlite
+google_oauth_credentials.json  jupyterhub_config.py
+```
+
+
+## Install the OAuthenticator package on the server
+
+Before our JupyterHub server can Google authentication, we first need to install the OAuthenticator Python package on the server.
+
+```text
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ conda activate jupyterhubenv
+(jupyterhubenv)$ pip install oauthenticator
+```
+
+
 ## Modify jupyterhub_config.py
 
-Once we get our Google OAuth credentials, we need to edit ```jupyterhub_conf.py``` again. Note your Google OAuth credentials need to replace ```'XXXXXXXXXXXXXXXXX'```. 
+Once we get our Google OAuth credentials uploaded onto the server, and we have installed the oauthenticator package, we need to edit ```jupyterhub_conf.py``` again. Note how the ```google_oauth_credentials.json``` and ```college_id.json``` files are used in the configuration. 
 
 ```python
 # /etc/jupyterhub/jupyterhub_conf.py
 
+import json
+
 # For Google OAuth
-from oauthenticator.google import LocalGoogleOAuthenticator
-c.JupyterHub.authenticator_class = LocalGoogleOAuthenticator
+from oauthenticator.google import GoogleOAuthenticator
+
 
 # Set up config
 c = get_config()
 c.JupyterHub.log_level = 10
-c.Spawner.cmd = '/opt/miniconda3/envs/jupyterhubenv/bin/jupyterhub-singleuser'
 
 # Cookie Secret and Proxy Auth Token Files
 c.JupyterHub.cookie_secret_file = '/srv/jupyterhub/jupyterhub_cookie_secret'
 c.ConfigurableHTTPProxy.auth_token = '/srv/jupyterhub/proxy_auth_token'
 
-# Google OAuth Login - Seems to work 2018-11-01
-c.LocalGoogleOAuthenticator.oauth_callback_url = 'https://mydomain.org/hub/oauth_callback'
-c.LocalGoogleOAuthenticator.client_id = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-c.LocalGoogleOAuthenticator.client_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+# Bring in Google OAuth client ID and client secret from json file
+with open('/etc/jupyterhub/google_oauth_credentials.json') as f:
+    google_oauth = json.load(f)
+
+# Google OAuth Login
+c.JupyterHub.authenticator_class = GoogleOAuthenticator
+c.LocalGoogleOAuthenticator.oauth_callback_url = google_oauth['web']['redirect_uris'][0]
+
+c.LocalGoogleOAuthenticator.client_id = google_oauth['web']['client_id']
+c.LocalGoogleOAuthenticator.client_secret = google_oauth['web']['client_secret']
+
 c.LocalGoogleOAuthenticator.create_system_users = True
 c.Authenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--disabled-password', '--force-badname']
-c.LocalGoogleOAuthenticator.hosted_domain = 'college.edu'
-c.LocalGoogleOAuthenticator.login_service = 'College Name'
+
+# College Specific Names
+with open('/etc/jupyterhub/college_id.json') as f:
+    college_id = json.load(f)
+c.LocalGoogleOAuthenticator.hosted_domain = [college_id['domain']]
+c.LocalGoogleOAuthenticator.login_service = college_id['name']
+
+c.Authenticator.whitelist = {'peter','peter.kazarinoff'}
+c.Authenticator.admin_users = {'peter','peter.kazarinoff'}
 
 ``` 
 
@@ -108,7 +206,6 @@ sshd
 pollinate
 peter
 peter.lastname
-githubusername
 ```
 
 <br>

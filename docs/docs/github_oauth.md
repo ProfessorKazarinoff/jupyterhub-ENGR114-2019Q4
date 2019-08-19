@@ -22,7 +22,7 @@ To use the GitHub authenticator in JupyterHub, first we need to install **oauthe
 
 ```text
 $ conda activate jupyterhubenv
-(jupyterhubenv)$ pip install conda install oauthenticator
+(jupyterhubenv)$ pip install oauthenticator
 ```
 
 ## Create GitHub OAuth App
