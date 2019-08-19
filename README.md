@@ -1,4 +1,4 @@
-# jupyterhub-engr114
+# jupyterhub-ENGR114-2019Q4
 
 This repo contains the shared files used to create a JupyterHub server on Digital Ocean using an Nginx proxy server and SSL security. This deployment is for an Engineering Programming class (ENGR114) at Portland Community College during Fall 2019.
 
@@ -8,7 +8,11 @@ Docs for this deployment of JupyterHub in Fall 2018 will eventually be found her
 
  > [https://professorkazarinoff.github.io/jupyterhub-ENGR114-2019Q4/](https://professorkazarinoff.github.io/jupyterhub-ENGR114-2019Q4)
 
-Docs for a very similar deployment of JupyterHub in Winter 2019 can be found here:
+The next most recent deployment of JupyterHub in ENGR101 Winter 2019 can be found here:
+
+ > [https://professorkazarinoff.github.io/jupyterhub-engr101/](https://professorkazarinoff.github.io/jupyterhub-engr101/)
+
+Docs for a very similar deployment of JupyterHub in ENGR114 Winter 2019 can be found here:
 
  > [https://professorkazarinoff.github.io/jupyterhub-engr114/](https://professorkazarinoff.github.io/jupyterhub-engr114/)
 
@@ -33,9 +37,8 @@ For another deployment of JupyterHub on Digital Ocean with Nginx proxy. See thes
 13. Install Nginx on server
 14. Modify Nginx config to move traffic to JupyterHub and use SSL cirts
 15. Run JupyterHub as a system service using systemd
-16. Start Nginx and JupyterHub. Should be able to go to https://domain.org and start, run and save a Jupyter notebook.
-17. Set JupyterLab as the default interface (instead of the regular Jupyter notebook interface)
-18. Add authentication for Google login usernames and passwords
-19. Create a custom login page
-20. Pull assignments and notes down from GitHub each time a student logs into JupyterHub.
-21. Celebrate!
+16. Start Nginx and JupyterHub. Should be able to go to https://mydomain.org and start, run and save a Jupyter notebook.
+17. Add authentication for Google login usernames and passwords
+18. Create a custom login page
+19. Pull assignments and notes down from GitHub each time a student logs into JupyterHub.
+20. Celebrate!
