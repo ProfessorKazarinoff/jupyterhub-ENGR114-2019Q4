@@ -121,8 +121,8 @@ Digital Ocean recommends that the servers are run by a non-root user that has su
 First, let's make sure everything is up to date:
 
 ```text
-$ sudo apt-get update
-$ sudo apt-get upgrade
+# apt-get update
+# sudo apt-get upgrade
 ```
 
 I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart) at Digital Ocean to create a non-root sudo user.
@@ -130,7 +130,7 @@ I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-
 Create the new user with the ```adduser``` command. I called my new user ```peter```.
   
 ```text
-$ adduser <username>
+# adduser <username>
 ```
 
 Set a new password and confirm:
@@ -157,16 +157,16 @@ Is the information correct? [Y/n]
 Now let's give our new user sudo privaleges:
 
 ```text
-$ usermod -aG sudo <username>
+# usermod -aG sudo peter
 ```
 
 The new user account is created and the new user has sudo privalges. We can switch accounts and become the new user with:
 
 ```text
-$ sudo su - <username>
+# su - peter
 ```
 
-The new user should have ```sudo``` privileges. That means when acting as ```<username>``` we should be able to look in the ```/root``` directory.
+The new user should have ```sudo``` privileges. That means when acting as ```peter``` we should be able to look in the ```/root``` directory.
 
 ```text
 $ sudo ls -la /root
@@ -174,10 +174,11 @@ $ sudo ls -la /root
 
 If you can see the contents of ```/root``` then the new user is set up with sudo access.
 
-To exit out of the the new sudo user, and get back to using the root profile, type ```exit``` at the prompt
+To exit out of the the new sudo user, and get back to using the root profile, type ```exit``` at the prompt.
 
 ```text
 $ exit
+#
 ```
 
 ## Add SSH keys to new user's profile
@@ -197,9 +198,9 @@ $ rsync --archive --chown=peter:peter ~/.ssh /home/peter
 Next, we need to open the ufw firewall to OpenSSH trafic. We we'll communicate with the server over SSH and need the firewall to allow this type of communication through.
 
 ```text
-$ ufw allow OpenSSH
-$ ufw enable
-$ ufw status
+$ sudo ufw allow OpenSSH
+$ sudo ufw enable
+$ sudo ufw status
 ```
 
 Now we can exit out of the ```root``` profile. This terminates the PuTTY session.
@@ -210,7 +211,7 @@ $ exit
 
 ## Connect to the server as the non-root sudo user using PuTTY
 
-Now that the non-root sudo user is set up and our ssh keys are in ```/home/<user>/.ssh/authorized_keys/```, let's start a new PuTTY session and log into the server as the new user. 
+Now that the non-root sudo user is set up and our ssh keys are in ```/home/peter/.ssh/authorized_keys/```, let's start a new PuTTY session and log into the server as the new user. 
 
 Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:
 
@@ -231,11 +232,11 @@ You should see the Digital Ocean login screen again. Note the command prompt wil
 
 ![server terminal as peter](images/putty_ssh_window_open_as_peter.png)
 
-Check to see which directory you land in. It should be ```/home/<username>```
+Check to see which directory you land in. It should be ```/home/peter```
 
 ```text
 $ pwd
-/home/<username>
+/home/peter
 ```
 
 We can see the non-root user's home directory. Let's make sure we can also see into the ```root``` user's home directory to ensure we have sudo privileges as the non-root user:
