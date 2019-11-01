@@ -14,7 +14,8 @@ For users to feel comfortable with logging into the JupyterHub server, we'll mak
 
 ## Create a templates directory and populate it with Jinja templates
 
-This was a time consuming and fussy task. It involved a lot of messing around with css and html.
+!!! Note
+    This was a time consuming and fussy task. It involved a lot of messing around with css and html.
 
 First, a set of custom **jinja** templates need to be created. When JupyterHub runs, there is a directory of jinja templates that build the html users see when they browse to the login page. These jinga templates are burried deep in the JupyterHub package code. For my JupyterHub installation on the server, I found the jinja template files in the ```/opt/miniconda3/envs/jupyterhubenv/share/jupyterhub/templates/``` directory. If you aren't using a virtual environment, the JupyterHub package directory name will likey be different:
 
@@ -87,7 +88,8 @@ I used the FileZilla SFTP Windows App to move over the ```login.html```. To use 
 
 Now we need to modify the ```jupyterhub_config.py``` file so that our new set of custom jinja templates are used instead of the default jinja templates.
 
-A problem I initially had was I set the directory path of the custom templates as ```templates``` and the login page didn't work as expected. When I changed the directory path to ```templates/``` the problem was resolved.
+!!! caution
+    A problem I initially had was I set the directory path of the custom templates as ```templates``` and the login page didn't work as expected. When I changed the directory path to ```templates/``` the problem was resolved.
 
 ```python
 # /etc/jupyterhub/jupyterhub_config.py
@@ -128,7 +130,7 @@ Therefore, we need to add some css styling to the page.
 
 Finally, the ```style.min.css``` file needs to be modified so that the login page styling looks a little more like the college login page.
 
-This is another thing I messed around with for a long time, a WAY to long time. I couldn't figure out a way to get JupyterHub to use a custom .css file. I tried creating a .css file in the new custom templates directory, but JupyterHub wouldn't copy it as a static asset when the server launched. I also tried putting a separate .css file deep inside of the JupyterHub package code. When the server ran, it seemed to copy the custom .css file (I could see the custom .css file using chrome's inspect element tool). But for some reason the custom .css file would be blank when server serve was running, even though the custom .css file contained a whole bunch of css code when viewed deep in the JupyterHub package code.
+ > This is another thing I messed around with for a long time, a WAY to long time. I couldn't figure out a way to get JupyterHub to use a custom .css file. I tried creating a .css file in the new custom templates directory, but JupyterHub wouldn't copy it as a static asset when the server launched. I also tried putting a separate .css file deep inside of the JupyterHub package code. When the server ran, it seemed to copy the custom .css file (I could see the custom .css file using chrome's inspect element tool). But for some reason the custom .css file would be blank when server serve was running, even though the custom .css file contained a whole bunch of css code when viewed deep in the JupyterHub package code.
 
 The solution I finally got to work was modifying the ```style.min.css``` file itself that JupyterHub uses. This file is buried deep in the JupyterHub package code:
 

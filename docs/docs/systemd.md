@@ -2,6 +2,10 @@
 
 Running JupyerHub as a system service allows JupyterHub to run continously even if we aren't logged into the server. It also keeps JupyterHub running while when we log into the server and make any changes.
 
+[TOC]
+
+## Create a jupyterhub.service file
+
 To run JupyterHub as a system service (according to [this wiki](https://github.com/jupyterhub/jupyterhub/wiki/Run-jupyterhub-as-a-system-service)
 ), we need to create a service file in the ```/etc/systemd/system``` directory. ```cd``` into the directory and have a look around. We see a couple files that end in ```.service```
 
@@ -24,7 +28,7 @@ Create a new ```.service``` file called ```jupyterhub.service```
 $ sudo nano jupyterhub.service
 ```
 
-In the file, add the following. Note that as part of the ```PATH``` environment variable ```/opt/miniconda3/envs/jupyterhubenv/bin/``` is included. This is the path to our virtual environment. As part of the ```ExecStart=``` section, we include a flag for our JupyterHub config file located at  ```/etc/jupyterhub/jupyterhub_config.py``` file. 
+In the ```jupyterhub.service``` file, add the following. Note that as part of the ```PATH``` environment variable ```/opt/miniconda3/envs/jupyterhubenv/bin/``` is included. This is the path to our virtual environment. As part of the ```ExecStart=``` section, include a flag for our JupyterHub config file located at  ```/etc/jupyterhub/jupyterhub_config.py```. 
 
 ```
 [Unit]
@@ -41,6 +45,8 @@ WantedBy=multi-user.target
 ```
 
 Save and exit the nano text editor with [Ctrl-x] + [Enter]. 
+
+## Reload the systemd daemon and start the system service
 
 Now we need to reload the system daemon and run JupyterHub as a system service using the command: ```sudo systemctl <start|stop|status> jupyterhub```
 
@@ -66,9 +72,9 @@ Now we can go to the server and log in as our non-root user ```peter```.
 
 ![JupyterHub PAM Login](images/jupyterhub_no_ssl_login.png)
 
-A couple times I thought that JupyterHub was running after using ```systemctl start jupyterhub```, but the JupyterHub wasn't working when I went to the server's web address. It turned out that JupyterHub wasn't running when I keyed in ```systemctl status jupyterhub```. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. 
+ > A couple times I thought that JupyterHub was running after using ```systemctl start jupyterhub```, but the JupyterHub wasn't working when I went to the server's web address. It turned out that JupyterHub wasn't running when I keyed in ```systemctl status jupyterhub```. Most times looking for an error and tracking down the the error worked, but one time it seemed to be a problem with the http-configurable-proxy. 
 
-The following command will shut down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the ```kill``` command):
+The following command shuts down the proxy if you get stuck like I did (insert the number corresponding to the configurable-http-proxy process after the ```kill``` command):
 
 ```text
 $ ps aux | grep configurable-http-proxy
@@ -77,6 +83,6 @@ $ kill ####
 
 ## Next Steps
 
-The next step is to have JupyterHub accept Google usernames and passwords. This will allow students with college email accounts to log into JupyterHub and means we don't have to deal with creating new users and sending students usernames and passwords.
+The next step is to have JupyterHub accept Google usernames and passwords. This allows students with college email accounts to log into JupyterHub and means we don't have to deal with creating new users and sending students usernames and passwords.
 
 <br>

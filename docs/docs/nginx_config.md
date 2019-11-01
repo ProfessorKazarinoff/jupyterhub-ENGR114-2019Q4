@@ -2,6 +2,10 @@
 
 The next step is to modify the Nginx config file so that Nginx uses our SSL certificates and routes requests on to JupyterHub. 
 
+[TOC]
+
+## Introduction
+
 The Nginx configuration step was the hardest part for me when I set up my first JupyterHub server. The Nginx config file isn't Python code or a bash script. I went through many different variations until I finally got a config file that worked. 
 
 The big initial problem was that I copied the sample Nginx config that's up on the JupyterHub docs. But the Nginx config posted on the JupyterHub docs is not a complete Nginx config, it contains just the server portion. I didn't know that the whole server portion needed to be enclosed in another frame.
@@ -96,7 +100,7 @@ Save and exit with [Ctrl] + [x] and [Enter]
 
 ## Restart Nginx
 
-Now let's restart Nginx with our new configuration.
+Now let's restart Nginx with our new configuration in place.
 
 ```text
 $ sudo systemctl stop nginx

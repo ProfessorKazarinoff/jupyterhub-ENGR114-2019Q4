@@ -1,14 +1,14 @@
-# Obtain SSL Certificates
+# Obtain an SSL Certificate
 
-Because we have a qualified domain name hooked up to our server, we'll be able to obtain an SSL certificate. I followed [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon) to install **certbot**, a program used to generate SSL certificates. 
+In the last step, we hooked up a qualified domain name to our JupyterHub server. So now we'll be able to obtain an SSL certificate that goes with the specific domain. I followed [this presentation](https://www.slideshare.net/willingc/jupyterhub-tutorial-at-jupytercon) to install **certbot**, a program used to generate SSL certificates. 
 
 [TOC]
 
 ## Install and run certbot
 
-We'll use certbot to obtain a standalone SSL certificate. 
+We'll use [certbot](https://certbot.eff.org/) to obtain a standalone SSL certificate for our JupyterHub server. 
 
-But wait- we need to make sure that port 80 is open on the ufw firewall. If port 80 is closed, cirtbot won't be able to verify that our domain name is correctly configured. So before running cirtbot, make sure to open port 80.
+**But wait**- we need to make sure that port 80 is open on the ufw firewall. If port 80 is closed, cirtbot won't be able to verify that our domain name is correctly configured. So before running cirtbot, make sure to open port 80.
 
 ```text
 $ sudo ufw allow 80
@@ -26,7 +26,7 @@ $ chmod a+x certbot-auto
 $ ./certbot-auto certonly --standalone -d mydomain.org
 ```
 
-If certbot worked, and we get our SSL certificate- the output looks something like below:
+If certbot worked, and we get an SSL certificate- the output looks something like below:
 
 ```text
 IMPORTANT NOTES:
@@ -39,7 +39,7 @@ IMPORTANT NOTES:
 
 ## File Locations
 
-Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. We'll need to put these file paths into the Nginx configuration.
+Note the location of the ```fullchain.pem``` and ```privkey.pem``` files. In a future step, we'll add these file paths into our Nginx configuration .
 
 We also need to allow Nginx to access these files. I had trouble getting Nginx to run and [this presentation](https://www.youtube.com/watch?v=alaGteCPZU8&t=1721s) showed a way to give Nginx access to the SSL key files. There is probably a more "Linuxy" way of giving Nginx access to the cert files, but I messed around with the permission settings for a while, and using the commands below worked.
 

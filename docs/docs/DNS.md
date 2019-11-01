@@ -1,6 +1,6 @@
 # DNS Routing
 
-After we verify JupyterHub is working with all the default settings, we need to link a domain name our Digital Ocean server.
+After we verify JupyterHub is working with all the default settings, we need to link a domain name our Digital Ocean server. That way students can visit a domain like engr114.org instead of having to visit an IP address like 215.154.998.607.
 
 [TOC]
 
@@ -8,7 +8,10 @@ After we verify JupyterHub is working with all the default settings, we need to 
 
 When we started JupyterHub in the previous step, it ran, we could log in, and we could run Python code. What's not to like, right? **Well, security is the big problem.** 
 
-In the initial setup, JupyterHub was running under regular http, not https. With a web application that has usernames and passwords, like JupyterHub, having https and SSL security is best (or maybe manditory). 
+!!! warning
+    <strong>Do not run JupyterHub in production without SSL security.</strong>
+
+In the initial setup, JupyterHub was running under regular http, not https. With a web application that has usernames and passwords, like JupyterHub, having https and SSL security is best (or really manditory). 
 
 In order to use https, we need to generate an SSL certificate. The SSL certificate should correspond to the domain name linked to our server. Therefore, the first step on our way to SSL security, is purchasing a domain name and pointing the domain name at the Digital Ocean DNS servers. Then we'll link the domain name to our JupyterHub server.
 
@@ -20,7 +23,7 @@ After purchasing the domain, I added the Digital Ocean DNS servers as a set of c
 
 ![Google Domains Dashboard](images/google_domains_list.png)
 
-To add a set of custom name servers using the Google Domains dashboard, click the button with the two bars under the DNS header. This brings up a page where we can enter in the Digital Ocean DNS server addressess. 
+To add a set of custom name servers using the Google Domains dashboard, click the button with the two bars under the DNS header. This brings up a page where you can enter in the Digital Ocean DNS server addressess. 
 
 The name servers to add are:
 
@@ -52,9 +55,9 @@ I entered ```@``` in the text field labeled [Enter @ or hostname]. Then selected
 
 ![DO Domains/DNS](images/DO_sub_domain.png)
 
-I also entered ```www``` in the text field [Enter @ or hostname], then selected the JupyterHub droplet like before. This way ```www.mydomain.org``` will route to our JupyterHub server.
+I also entered ```www``` in the text field [Enter @ or hostname], then selected the JupyterHub droplet like before. This way ```www.mydomain.org``` will route to our JupyterHub server as well.
  
- After completing this step, there will be a couple of new DNS records. The results will look something like the screen capture below:
+ After completing this step, there will be a couple of new DNS records on the Digital Ocean dashboard. The results will look something like the screen capture below:
  
 ![DO Domains/DNS](images/DO_domains_routed.png)
 

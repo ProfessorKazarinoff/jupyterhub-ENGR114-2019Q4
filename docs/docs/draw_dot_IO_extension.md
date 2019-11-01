@@ -37,8 +37,8 @@ $ sudo systemctl status jupyterhub
 
 ![Draw.IO flow chart](images/draw_dot_io_flow_chart.png)
 
-## Next Steps
+## Summary
 
-The next step is to create a set of notes and assignments in a GitHub repo. Then have JupyterHub pull down this GitHub repo for each student when the log in. This means the notes and assignments for the course are pre-populated in each student's JupyterLab file tree each time they start JupyterHub.
+This page showed how to install the Draw.IO extension for JupyterLab. JupyterHub users the open the JupyterLab interface can use Draw.IO to create flow charts and other useful diagrmas.
 
 <br>

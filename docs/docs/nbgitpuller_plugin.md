@@ -1,6 +1,10 @@
 # nbgitpuller Plugin
 
-In this section, we will install, enable and test the nbgitpuller plugin.
+In this section, we will install, enable and test the [nbgitpuller plugin](https://github.com/jupyterhub/nbgitpuller#constructing-the-nbgitpuller-url).
+
+[TOC]
+
+## Introduction
 
 The [nbgitpuller plugin](https://github.com/jupyterhub/nbgitpuller#constructing-the-nbgitpuller-url) pulls down a GitHub repo into each student's JupyterHub environment when students start JupyterHub by clicking on a specific link. 
 
@@ -12,7 +16,7 @@ The URL for the auto-generated URL contruction app in Binder is here:
 
  > [https://mybinder.org/v2/gh/jupyterhub/nbgitpuller/master?urlpath=apps/binder%2Flink_generator.ipynb](https://mybinder.org/v2/gh/jupyterhub/nbgitpuller/master?urlpath=apps/binder%2Flink_generator.ipynb)
 
-## Install nbgitpuller plugin
+## Install the nbgitpuller plugin
 
 To install the nbgitpuller plugin for JupyterHub, first log into the server and stop JupyterHub. Then activate the ```(jupyterhubenv)``` virtual environment and pip install the plugin. 
 
@@ -79,7 +83,7 @@ In this section we installed the nbgitpuller plugin for JupyterHub. Then we crea
 
 This is a great plugin to have with JupyterHub. Now when we make changes to the Labs or Assignments in the GitHub Repo, those changes are reflected when students log into JupyterHub with the special URL.
 
-## Next Steps
+## Future Work
 
-Next, we'll configure JupyterHub to automatically go the the URL we setup with the nbgitpuller plugin. So when students go to ```domain.org``` they get the same files as if they went to the custom plugin URL ```https://mydomain.org/hub/user-redirect/git-pull?repo=GitHubUserName%2FRepoName&branch=master&app=lab```
+It would be nice if we could configure JupyterHub to automatically go the the URL we setup with the nbgitpuller plugin. So that when students go to ```domain.org``` they get the same files as if they went to the custom plugin URL ```https://mydomain.org/hub/user-redirect/git-pull?repo=GitHubUserName%2FRepoName&branch=master&app=lab```
 

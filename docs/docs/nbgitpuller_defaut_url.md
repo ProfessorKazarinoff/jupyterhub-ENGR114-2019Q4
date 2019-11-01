@@ -1,6 +1,6 @@
 # nbgitpuller default URL
 
-In this section, we will configure the nbgitpuller URL from the previous section into the default URL for our JupyterHub site. This mean that any time a student goes to [mydomain.org](#) --> [mydomain.org/mycustomgitpullerurl](#) 
+In this section, we will discuss how one might configure the nbgitpuller URL from the previous section into the default URL for our JupyterHub site. This mean that any time a student goes to [mydomain.org](#) --> [mydomain.org/mycustomgitpullerurl](#) 
 
 The [nbgitpuller plugin](https://github.com/jupyterhub/nbgitpuller#constructing-the-nbgitpuller-url) pulls down a GitHub repo into each student's JupyterHub environment when students start JupyterHub by clicking on a specific link. 
 
@@ -36,7 +36,7 @@ Inside the jupyterhub_config.py file, modify the line ```c.Spawner.default_url =
 
 This produces a URL that is of the form: ```https://engr114.org/hub/user-redirect/git-pull?repo=ProfessorKazarinoff%2FENGR114&branch=master&app=lab```. We only need part of this for the ```default_url```. We'll keep everything after the ```https://engr114.org```
 
-```
+```text
 /hub/user-redirect/git-pull?repo=ProfessorKazarinoff%2FENGR114&branch=master&app=lab
 ```
 
@@ -57,17 +57,16 @@ c.Spawner.default_url = '/user-redirect/git-pull?repo=ProfessorKazarinoff%2FENGR
 
 Save the changes and restart JupyterHub.
 
+## Restart JupyterHub and test it out
+
 ```text
-
-
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+[Ctrl]-[c] to exit
+```
 
 ## Summary
 
-In this section we installed the nbgitpuller plugin for JupyterHub. Then we created a custom URL. When we browse to the custom URL, we enter our JupyterHub environment with all the files contained on GitHub placed in our user directory. 
+In this section we configured JupyterHub to automatically go the the URL we setup with the nbgitpuller plugin. So when students go to ```domain.org``` they get the same files as if they went to the custom plugin URL ```https://mydomain.org/hub/user-redirect/git-pull?repo=GitHubUserName%2FRepoName&branch=master&app=lab```
 
-This is a great plugin to have with JupyterHub. Now when we make changes to the Labs or Assignments in the GitHub Repo, those changes are reflected when students log into JupyterHub with the special URL.
-
-## Next Steps
-
-Next, we'll configure JupyterHub to automatically go the the URL we setup with the nbgitpuller plugin. So when students go to ```domain.org``` they get the same files as if they went to the custom plugin URL ```https://mydomain.org/hub/user-redirect/git-pull?repo=GitHubUserName%2FRepoName&branch=master&app=lab```
-
+<br>

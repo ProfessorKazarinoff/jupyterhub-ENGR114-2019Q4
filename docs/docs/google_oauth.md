@@ -2,15 +2,19 @@
 
 Now that we have JupyterHub running as a system service and we can log onto JupyterHub with the local PAM authenticator (regular Linux usernames and passwords), we are going to get into the weeds of getting the Google authenticator to work. 
 
-Why Google authenticator instead of local PAM authentication? Our college uses the Gmail suite for both staff and students. When students log onto their college email, they are logging into Gmail. Students can use Google Calendar and Google Drive with their college email account as well. So it is probably best that students log into JuypterHub using the same Google login they use to access their college email, Google Drive and Calendar. It's just going to take a bit of work to get there.
-
 [TOC]
+
+## Why Google OAuth?
+
+Why Google authenticator instead of local PAM authentication? Our college uses the Gmail suite for both staff and students. When students log onto their college email, they are logging into Gmail. Students can use Google Calendar and Google Drive with their college email account as well. So it would be convenient for students log into JuypterHub using the same Google login they use to access their college email, Google Drive and Calendar. 
+
+It's just going to take a bit of work to get there.
 
 ## Google OAuth Instance
 
-To allow students to use Google usernames and passwords to log into JupyterHub, the first thing we need to do is set up a Google OAuth instance. I set up Google OAuth instance using my personal Gmail account, rather than my college Gmail account. Some parts of the Google Apps Suite are not available in my college profile, like YouTube and developer tabs. 
+To allow students to use Google usernames and passwords to log into JupyterHub, the first thing we need to do is set up a Google OAuth instance. I set up a Google OAuth instance using my personal Gmail account, rather than my college Gmail account. Some parts of the Google Apps Suite are not available in my college profile, like YouTube and developer tabs. 
 
-To obtain the Google OAuth credentials, we need to log into the Google API console [https://console.developers.google.com/](https://console.developers.google.com/) and select [Credentials] on the lefthand menu.
+To obtain the Google OAuth credentials, log into the Google API console [https://console.developers.google.com/](https://console.developers.google.com/) and select [Credentials] on the lefthand menu.
 
 ![Google oauth credentials](images/google_oauth_credentials.png)
 
@@ -18,7 +22,7 @@ Next, we'll create a new OAuth credential under [Credentials] --> [Create Creden
 
 ![Google create credentials](images/google_oauth_create_credentials.png)
 
-To create a set of Google OAuth credentials we need to input:
+Create a set of Google OAuth credentials using the following input:
 
  * Authorized JavaScript origins: ```https://mydomain.org```
  * Authorized redirect URIs: ```https://mydomain.org/hub/oauth_callback```
@@ -34,7 +38,8 @@ After creating a new set of Google OAuth credentials, note the:
  
  The client ID and client secret strings will be included in our revised JupyterHub configuration.
 
- In a previous JupyterHub deployment, I had trouble with creating OAuth credentials in Google's developer console. The description of the problem and the solution is below. Note that in this deploymnet of JupyterHub, I am re-using a domain name, so this specific problem didn't crop up.
+!!! Note
+     In a previous JupyterHub deployment, I had trouble creating OAuth credentials in Google's developer console. The description of the problem and the solution is below. Note that in this deploymnet of JupyterHub, I am re-using a domain name, so this specific problem didn't crop up.
 
  After clicking [Create] a problem surfaced. The Google OAuth dashboard noted that:
 
@@ -42,7 +47,7 @@ After creating a new set of Google OAuth credentials, note the:
 
 ![Google OAuth Dashboard Resistrictions](images/google_oauth_restrictions.png)
 
-So click the [authorized domains list] link and enter the domain name for the JupyterHub server in the text box under [Authorized domains].
+Click the [authorized domains list] link and enter the domain name for the JupyterHub server in the text box under [Authorized domains].
 
 ![Google OAuth add scope](images/google_oauth_add_scope.png)
 
@@ -98,7 +103,9 @@ The output will be the ```'client_id'``` and ```'client_secret'``` from the json
 
 ## Add the json file to .gitignore
 
-Now we need to move the ```google_oauth_credentials.json``` to the sever, but before we do: **MAKE SURE TO ADD THE FILE TO .gitignore !!! WE DON'T WANT PRIVATE CREDENTIALS STORED ON GITHUB !!!**.
+Now we need to move the ```google_oauth_credentials.json``` to the sever, but before we do: 
+
+**MAKE SURE TO ADD THE FILE TO .gitignore !!! WE DON'T WANT PRIVATE CREDENTIALS STORED ON GITHUB !!!**.
 
 !!! warning
     <strong>Important!</strong> Do not save private credentials in a public GitHub repository! Keep your credentials private!
@@ -122,6 +129,8 @@ In ```.gitignore``` on my local machine, I added the following lines at the end.
 ## Move the json file to the server
 
 Now move the .json file over to the server and save it in the ```/etc/jupyterhub/``` directory. I used FileZilla to move the json file over to the server instead of using copy-paste into PuTTY and the nano code editor.
+
+![filezilla settings](images/filezilla_download_page.png)
 
 Open FileZilla and select [File] --> [Site Manager... ]. Enter in the server's IP address and select the SSH key used to log into the server. Make sure to select:
 
@@ -261,7 +270,7 @@ This little line:
 c.Authenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--disabled-password', '--force-badname']
 ```
 
-was a real gottacha. Our college email addresses are in the form:
+was a real gottacha! Our college email addresses are in the form:
 
 ```firstname.lastname@college.edu```
 
@@ -304,9 +313,11 @@ If you added your college username was added to the ```c.Authenticator.admin_use
 
 ![Jupyter Notebook admin three users](images/nb_admin_three_users.png)
 
-You can shut down the you college username's notebook server and logout (or play around with some notebooks).
+In the admin screen, you can shut down the individual notebook servers and logout.
 
-After we log in using our college username and password, we can see if JupyterHub created a new user (with our college username) on the server. The command below produces a long list of users. This long list contains the non-root sudo user ```peter``` and the Google authenticated user (college username).
+After we log in using our college username and password, we can see if JupyterHub created a new user (with our college username) on the server.
+
+The command below produces a long list of users. This long list contains the non-root sudo user ```peter``` and the Google authenticated user (college username).
 
 ```text
 $ awk -F':' '{ print $1}' /etc/passwd
@@ -331,11 +342,11 @@ This was a big section and we got a lot accomplished. At the end of it, we have 
  * Figure out how to pull the client ID and secret out of the .json file using Python's json module from the Python Standard Library.
  * Add the .json file to .gitignore so that our private client ID and private client secret are not made public.
  * Move the .json file over to the server with FileZilla.
- * Create a ```college_id.json``` file and move it over to the server with FileZilla
+ * Create a ```college_id.json``` file and move it over to the server with FileZilla.
  * Modify the ```jupyterhub_config.py``` file. Add Google authentication to our JupyterHub configuration.
  * On the server, ```pip``` install **oauthenticator** into the virtual environment that runs JupyterHub.
  * Restart JupyterHub and login with a Google username and password.
- * Use the JuputerHub admin and the terminal to see the new user JupyterHub added to our server
+ * Use the JuputerHub admin and the terminal to see the new user JupyterHub created.
 
 ## Next Steps
 

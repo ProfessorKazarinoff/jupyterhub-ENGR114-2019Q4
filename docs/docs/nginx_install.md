@@ -1,10 +1,16 @@
 # Install Nginx
 
-Now that the domain name is set up, and we have our SSL cirt and the three security files, the next step is to install and configure Nginx. 
+In previous steps we accomplished the following:
+
+ * A domain name is set to route to our server
+ * We have our SSL cirt
+ * We created the three security files
+ 
+The next step is to install and configure Nginx. 
 
 Nginx is an open-source web server that can handle many concurrent web connections at the same time. For the Nginx installation, I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04) from Digital Ocean.
 
-Use PuTTY to connect to the server with the non-root sudo user we set up when we created the server. Once logged in, we can update the system and install Nginx.
+Log into the server, update the system, and install Nginx with the apt package manager.
 
 ```text
 $ sudo apt-get update
@@ -30,7 +36,7 @@ Available applications:
 
 We want to allow in both http and https requests. Once a http request comes in, we'll use Nginx to convert the http connection to a https connection. 
 
-Select nginx full. Note the **C**apitalization in the command:
+Select ```Nginx full```. Note the **C**apitalization in the command:
 
 ```text
 $ sudo ufw allow 'Nginx Full'
@@ -75,12 +81,12 @@ Main PID: 17126 (nginx)
     └── 17127 nginx: worker process
 ```
 
-Now we can browse over to the domain (the domain we set up with Digital Ocean DNS and Doogle Domains) and see the Nginx start page.
+Now we can browse over to the domain (the domain we set up with Digital Ocean DNS dashboard and Google Domains) and see the Nginx start page.
 
 ![nginx welcome page](images/welcome_to_nginx.png)
 
 ## Next Steps
 
-Now that Nginx is installed, the next step is to configure Nginx to use our SSL certificate and run as a reverse proxy for our JupyterHub server.
+Now that Nginx is installed, the next step is to configure Nginx to use our SSL certificate and run Nginx as a reverse proxy for our JupyterHub server.
 
 <br>

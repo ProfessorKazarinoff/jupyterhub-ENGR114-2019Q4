@@ -6,7 +6,7 @@ In addition to an SSL certificate, the [Jupyter Hub docs on security basics](htt
 
 ## Create the Cookie Secret
 
-To create the cookie secret file:
+To create the cookie secret file, log onto the JupyterHub server and issue the following commands:
 
 ```text
 $ cd /srv
@@ -23,15 +23,15 @@ $ ls -l
 -rw------- 1 root sudo 65 Sep 14 17:41 jupyterhub_cookie_secret
 ```
 
-I had trouble with the cookie secret file because I missed where the [jupyterhub docs](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html#generating-and-storing-as-a-cookie-secret-file) show:
+I had trouble with the cookie secret file because I missed where the [JupyterHub docs](http://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html#generating-and-storing-as-a-cookie-secret-file) show:
 
 > The file must not be readable by group or other or the server won’t start. The recommended permissions for the cookie secret file are 600 (owner-only rw).
 
-After we create the cookie secret file, we need to make note of the file's location. We'll add this location to the ```jupyterhub_config.py``` file later.
+After we create the cookie secret file, we need to make note of the file's location. We'll add this file path to the ```jupyterhub_config.py``` file in a future step.
 
 ## Create Proxy Auth Token
 
-To generate the proxy auth token, we use the same set of commands we used to create the cookie secret, except we'll point to a different file. 
+To generate the proxy auth token, use the same set of commands used to create the cookie secret, except point to a different file. 
 
 ```text
 $ pwd
@@ -48,7 +48,7 @@ $ ls -l
 -rw------- 1 root sudo 65 Sep 14 17:47 proxy_auth_token
 ```
 
-Now when we list the contents of ```~/srv/jupyterhub``` we see:
+Now when we list the contents of ```~/srv/jupyterhub``` directory we see:
 
 ```
 /srv/jupyterhub/
@@ -60,7 +60,9 @@ Now when we list the contents of ```~/srv/jupyterhub``` we see:
 
 Let's also generate a ```dhparam.pem``` file. I'm still not exactly sure what the ```dhparam.pem``` file is, but I think it's good for security. 
 
-The ```dhparam.pem``` file will be housed in the same ```/srv/jupyterhub``` directory that stores our proxy auth token and cookie secret. We use the same seqence as we did with the previous two files:  ```touch``` a new file called ```dhparam.pem```, then use ```chown``` and ```chmod``` to modify permissions. The ```openssl dhparam``` command generates the .pem file. After the command is run, it says ```This is going to take a long time```, but it doesn't really take all that long. Maybe a minute or two. Finally we modify the permissions again to ```600``` (owner-only rw). Note the location of this file as we will add it to the Nginx config later on.
+The ```dhparam.pem``` file will be housed in the same ```/srv/jupyterhub``` directory that stores our proxy auth token and cookie secret.
+
+We use the same commands that were used to create the previous two files:  ```touch``` a new file called ```dhparam.pem```, then use ```chown``` and ```chmod``` to modify permissions. The ```openssl dhparam``` command generates the .pem file. After the ```openssl dhparam``` command is run, a message appears: ```This is going to take a long time```, but it doesn't really take all that long. Maybe a minute or two. Finally modify the permissions again to ```600``` (owner-only rw). Note the location of this file as we will add it to the Nginx config in a future step.
 
 ```text
 $ cd /srv/jupyterhub

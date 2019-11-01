@@ -1,6 +1,6 @@
 # GitHub Extension
 
-Now we'll put in a "GitHub" tab into each user's JupyterLab browser that shows a "labs" and "notes" directory with pre-constructed lab assignments and notes for each JupyterHub user.
+You can put in a "GitHub" tab into each user's JupyterLab browser that shows a "labs" and "notes" directory with pre-constructed lab assignments and notes for each JupyterHub user.
 
 [TOC]
 
@@ -53,7 +53,6 @@ $ sudo systemctl status jupyterhub
 
 In the notebook config file (not the jupyterhub config file):
 
-```
+```text
 c.GitHubConfig.api_url = 'https://git.myserver.com/api/v3'
 ```
-

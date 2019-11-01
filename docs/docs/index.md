@@ -45,9 +45,8 @@ A [deployment of JupyterHub Winter 2019](https://professorkazarinoff.github.io/j
 * Create Cookie Secret, Proxy Auth Token, and dhparam.pem
 * Install and configure Nginx
 * Configure JupyterHub
-* GitHub Authentication
 * Google Authentication
 * Create a custom login page
-* Pull assignments down from GitHub for each user
+* Cull idle servers script
 
 <br>

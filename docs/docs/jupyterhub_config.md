@@ -1,12 +1,12 @@
 # JupyterHub Configuration
 
-Next, we'll create a ```jupyterhub_config.py``` file and modify it to include our cookie secret and proxy auth token. 
+Next, we'll create a ```jupyterhub_config.py``` file and modify the file to include our cookie secret and proxy auth token. 
 
 [TOC]
 
 ## Create jupyterhub_config.py
 
-We'll create the JupyterHub config file in the ```/etc/jupyterhub``` directory. After the directory is created, we need to modify the directory permissions. Then ```cd``` into it create the config file with ```jupyterhub --generate-config```. Make sure you are in the ```(jupyterhubenv)``` virtual environment when you run the command.  
+We'll create the JupyterHub config file in the ```/etc/jupyterhub``` directory. After the directory is created, we need to modify the directory permissions. Then ```cd``` into it create the config file with ```jupyterhub --generate-config```. Make sure you are in the ```(jupyterhubenv)``` virtual environment when you run the ```--generate-config``` command.  
 
 ```text
 $ cd /etc
@@ -50,9 +50,9 @@ c.Authenticator.admin_users = {'peter'}
 
 ## Restart nginx and start JupyterHub, see if we can login
 
-Now we'll restart Nginx and start JupyterHub. Not that this time when we start JupyterHub we don't need to use the ```--no-ssl``` flag. This is because we have SSL running on nginx. 
+Now we'll restart Nginx and start JupyterHub. Not that this time when we start JupyterHub we don't need to use the ```--no-ssl``` flag. This is because we have SSL running on Nginx. 
 
-If it seems like Nginx isn't working, try ```$ sudo systemctl status nginx``` and see if nginx really started. If it didn't, try the command ```nginx -t```. This command prints out any error messages if nginx failed to start. I had to trouble shoot Nginx many a lot before I got Nginx and JupyterHub working together.
+If it seems like Nginx isn't working, try ```$ sudo systemctl status nginx``` and see if nginx really started. If it didn't, try the command ```nginx -t```. This command prints out any error messages if Nginx failed to start. I had to trouble shoot Nginx many a lot before I got Nginx and JupyterHub working together.
 
 ```text
 $ sudo systemctl stop nginx
@@ -71,9 +71,11 @@ $ conda activate jupyterhubenv
 
 Log in to JupyterHub with the non-root sudo username (```peter```) and password (same user that's running the PuTTY session). 
 
+![Jupyterhub login screen](images/jupyterhub_pam_spawner_login.png)
+
 Now we can browse to our domain and see JupyterHub running in its full SSL glory.
 
-<br>
+![Jupyterhub login screen](images/nb_file_browser_new_notebook.png)
 
 ## Create an new user, restart JupyterHub and Login.
 
@@ -82,25 +84,27 @@ OK, it's all well and good that we can log in. But the purpose of setting up Jup
 If JupyterHub is still running, stop it with [Ctrl] + [c].  Let's create a new user and see if we can log in as her.
 
 ```text
-$ sudo adduser kendra
+$ sudo adduser gabby
 ```
 
-Go through the prompts and remember the UNIX password. Now we'll modify ```jupyterhub_conf.py``` to include our new user ```kendra``` and add ```peter``` (our non-root sudo user) as an administrator:
+Go through the prompts and remember the UNIX password. Now we'll modify ```jupyterhub_conf.py``` to include our new user ```gabby``` and add ```peter``` (our non-root sudo user) as an administrator:
 
 ```text
 
 ...
 
-c.Authenticator.whitelist = {'peter','kendra'}
+c.Authenticator.whitelist = {'peter','gabby'}
 c.Authenticator.admin_users = {'peter'}
 
 ```
 
-Restart JupyterHub and try and login as ```kendra```
+Restart JupyterHub and try and login as ```gabby```
 
 ```
 (jupyterhubenv)$ jupyterhub
 ```
+
+![login as gabby](images/jh_sign_in_gabby.png)
 
 ## Next Steps
 
