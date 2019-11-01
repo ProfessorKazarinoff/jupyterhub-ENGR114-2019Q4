@@ -290,7 +290,7 @@ If JupyterHub is running OK and there were no errors after the revisions to the 
 
 The login window should now look something like:
 
-![Sign in with Google](images/sign_in_with_google.png)
+![Sign in with Google](images/sign_in_with_google.PNG)
 
 We can log in with our Google user name and password (college username and password). 
 

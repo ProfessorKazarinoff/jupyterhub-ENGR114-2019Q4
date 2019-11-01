@@ -39,7 +39,7 @@ The URL of the latest Miniconda install for Linux will look something like:
 https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 ```
 
-To downland and install Miniconda on the server, we'll use the ```curl``` command and and run the bash installer from the command line:
+To downland and install Miniconda on the server, we'll use the ```curl``` command and run the bash installer from the command line:
 
 ```text
 $ cd /tmp
@@ -47,11 +47,12 @@ $ curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 $ sudo bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
-During the Miniconda install, we need to specify following installation directory:
+During the Miniconda install, we need to specify the following installation directory:
 
 ```text
 /opt/miniconda3/
 ```
+
 When the Miniconda install finished, the installer asked
 
 ```text
@@ -93,9 +94,9 @@ drwxr-xr-x 23 root root 4096 Oct 29 17:49 ..
 drwxr-xr-x 13 root root 4096 Oct 30 04:47 miniconda3
 ```
 
-Currently, the owner of the ```miniconda3``` directory is ```root``` and the group is ```root```. The owner ```root``` has read, write, execute privaleges (```rwx```) and the group ```root``` has read, execute privaleges (```r-x```), but now write prvialeges.
+Currently, the owner of the ```miniconda3``` directory is ```root``` and the group is ```root```. The owner ```root``` has read, write, execute privaleges (```rwx```) and the group ```root``` has read, execute privaleges (```r-x```), but no write prvialeges.
 
-Let's modify the read, write, execute privaleges so that the group ```root``` can read, write, and execute (```rwx```).
+Let's modify the read, write, execute privaleges of the ```minconda3/``` directory so that the group ```root``` can read, write, and execute (```rwx```).
 
 ```text
 $ sudo chmod -R g+w miniconda3/
@@ -152,7 +153,7 @@ $ conda activate jupyterhubenv
 (jupyterhubenv)$ conda install -c conda-forge jupyterhub
 ```
 
-Now try ```conda list``` and see all of the packages that are installed in ```(jupyterhubenv).
+Now try ```conda list``` and see all of the packages that are installed in ```(jupyterhubenv)```.
 
 ```text
 (jupyterhubenv)$ conda list
@@ -163,7 +164,7 @@ _libgcc_mutex             0.1                        main
 alembic                   1.0.11                     py_0    conda-forge
 altair                    3.2.0                    py37_0    conda-forge
 ...
-<br>
+```
 
 ## Run a very unsecured instance of Jupyter Hub just to see if it works
 
@@ -212,7 +213,7 @@ You should see the typical notebook file browser with all the files you can see 
 
 **Quick! Log out and shut down JupyterHub**. (does quick really matter in internet security?) The site is running without any ssl security over regular HTTP not HTTPS. Key in [Ctrl] + [c] to stop JupyterHub.
 
-After I shut the JupyterHub instance down, I re-blocked port 800 with the command below.
+After I shut the JupyterHub instance down, I re-blocked port 8000 with the command below.
 
 ```text
 $ sudo ufw deny 8000

@@ -6,7 +6,7 @@ To start the JupyterHub deployment process, we need to set up an Ubuntu 18.04 Se
 
 Digital Ocean is a cloud service provider like Amazon Web Services (AWS), Google Cloud, Microsoft Azure and Linode. Digital Ocean provides virtual private servers (called _droplets_ in Digital Ocean-speak) and online storage of static files (called _spaces_ in Digital Ocean-speak). 
 
-We are going to run the JupyterHub server on a Digital Ocean _droplet_. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:
+We are going to run JupyterHub on a Digital Ocean _droplet_. I like Digital Ocean's prices and web interface. The documentation on Digital Ocean is pretty good too. I already have a Digital Ocean account. I don't remember exactly how I did it, but going to this link:
 
 [https://www.digitalocean.com/](https://www.digitalocean.com/)
 
@@ -14,7 +14,7 @@ and selecting [Create Account -->] should work.
 
 ## Create a new Digital Ocean Droplet
 
-To create a new Digtial Ocean Droplet (a new server), log in here:
+To create a new Digtial Ocean droplet (a new cloud server), log in here:
 
 [https://cloud.digitalocean.com/login](https://cloud.digitalocean.com/login)
 
@@ -28,7 +28,7 @@ The welcome screen looks like this. To create a new server, select [Create Dropl
 
 ![Digital Ocean Create Droplet](images/digital_ocean_create_droplet.png)
 
-There are a number of choices to make. These are the ones I selected:
+There are a number of choices to make when you initially set up your server. The specifications I selected are below. Afer the server is set up, the amount of memory and processor count can be changed.
 
  * Image: Ubuntu 18.04 x64
  * Size: 1 GB Memory 25GB SSD $5/month
@@ -49,7 +49,9 @@ There are a number of choices to make. These are the ones I selected:
 !!! warning
     <strong>Important!</strong> You need to add the public SSH key BEFORE creating the droplet
 
-The public SSH key we created needs to be shown on the list of keys and the radio box beside it needs to be checked. If the SSH key isn't listed or the SSH key box left  unchecked, the SSH key will not be added to the server when the server is first created (and then we won't be able to log in with PuTTY). We need to add our public SSH key and check the key box so we can log onto the server with PuTTY.
+The public SSH key we created needs to be shown on the list of keys and the radio box beside it needs to be checked. If the SSH key isn't listed or the SSH key box left unchecked, the SSH key will not be added to the server when the server is first created (and then we won't be able to log in with PuTTY). 
+
+We need to add our public SSH key and check the key box so we can log onto the server with PuTTY.
 
 Under [Add your SSH keys], click [New SSH Key]. A dialog window pops up:
 
@@ -63,9 +65,9 @@ Enter a name for the SSH key that will be saved on Digital Ocean. I choose the n
 
 ![Putty in Windows Start Menu](images/digital_ocean_droplet_ssh_key_name_and_add.png)
 
-Then you should see the new SSH Key in the [Add your SSH Keys?] region of the new droplets page. Make sure that the radio box for the SSH key we just added is checked. 
+Then you should see the new SSH Key in the [Add your SSH Keys] region of the new droplets page. Make sure that the radio box for the SSH key we just added is checked. 
 
-A problem I had when I set up my first _droplet_ was that I did not have the SSH Key was radio button selected. Therefore, when the server was created, no SSH keys were installed. 
+ > A problem I had when I set up my first _droplet_ was that I did not have the SSH Key was radio button selected. Therefore, when the server was created, no SSH keys were installed. 
 
 It is _way easier_ to insert SSH keys into the server when the server is created. It is _way harder_ to add an SSH keys after the server is created.
 
@@ -79,11 +81,15 @@ After Droplet creation, you end up at the Digital Ocean main dashboard. Our new 
 
 ![Putty in Windows Start Menu](images/digital_ocean_droplets_1.png)
 
-Note the IP address of the new droplet. We need to IP address to log into our server with PuTTY.
+Note and copy the IP address of the new droplet to the clipboard. We need to IP address to log into our server with PuTTY.
 
 ## Log into the server as root over SSH using PuTTY.
 
-Open PuTTY from the Windows start menu. A couple other parameters need to be set before we log onto the server.
+Open PuTTY from the Windows start menu. 
+
+![Putty in Windows Start Menu](images/putty_in_start_menu.png)
+
+Set the following parameters in PuTTY to log into the server.
 
 | parameter | value |
 | --- | --- |
@@ -92,7 +98,7 @@ Open PuTTY from the Windows start menu. A couple other parameters need to be set
 | Connection --> SSH --> Auth --> Private key file | private SSH key |
 | Connection --> Data --> Auto-login username | root |
 
-![Putty in Windows Start Menu](images/putty_in_start_menu.png)
+
 
 Under Connect --> SSH --> Auth --> Private key file for authentication:, click [Browse]. 
 
@@ -116,7 +122,7 @@ This brings up a new window that is a terminal for our server:
 
 ## Create a non-root sudo user
 
-Digital Ocean recommends that the servers are run by a non-root user that has sudo access. So after an update, the thing we'll do on our server is create a non-root sudo user. 
+Digital Ocean recommends that servers are run by a non-root user that has sudo access. So after an update, the thing we'll do on our server is create a non-root sudo user. 
 
 First, let's make sure everything is up to date:
 
@@ -130,7 +136,7 @@ I followed [this tutorial](https://www.digitalocean.com/community/tutorials/how-
 Create the new user with the ```adduser``` command. I called my new user ```peter```.
   
 ```text
-# adduser <username>
+# adduser peter
 ```
 
 Set a new password and confirm:
@@ -211,7 +217,7 @@ $ exit
 
 ## Connect to the server as the non-root sudo user using PuTTY
 
-Now that the non-root sudo user is set up and our ssh keys are in ```/home/peter/.ssh/authorized_keys/```, let's start a new PuTTY session and log into the server as the new user. 
+Now that the non-root sudo user is set up and our ssh keys are in ```/home/peter/.ssh/authorized_keys/```, let's start a new PuTTY session and log into the server as the new user ```peter```. 
 
 Like before, open PuTTY from the Windows Start menu and add the following settings, but this time the Auto-login user name is the name of our new non-root sudo user:
 
@@ -239,7 +245,7 @@ $ pwd
 /home/peter
 ```
 
-We can see the non-root user's home directory. Let's make sure we can also see into the ```root``` user's home directory to ensure we have sudo privileges as the non-root user:
+Let's make sure we can also see into the ```root``` user's home directory to ensure we have sudo privileges as the non-root user:
 
 ```text
 $ sudo ls -la /root
