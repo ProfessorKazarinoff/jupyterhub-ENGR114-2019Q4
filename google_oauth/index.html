@@ -1,0 +1,1116 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>Google OAuth - JupyterHub-Deployment-ENGR114-2019Q4</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ff7043">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../static/css/toc.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#google-authentication" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="JupyterHub-Deployment-ENGR114-2019Q4" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">build</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              JupyterHub-Deployment-ENGR114-2019Q4
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Google OAuth
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/ProfessorKazarinoff/jupyterhub-ENGR114-2019Q4/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="JupyterHub-Deployment-ENGR114-2019Q4" class="md-nav__button md-logo">
+      
+        <i class="md-icon">build</i>
+      
+    </a>
+    JupyterHub-Deployment-ENGR114-2019Q4
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/ProfessorKazarinoff/jupyterhub-ENGR114-2019Q4/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../setup/" title="Set Up and Tools" class="md-nav__link">
+      Set Up and Tools
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ssh_keys/" title="SSH Keys" class="md-nav__link">
+      SSH Keys
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../doserver/" title="Server Setup" class="md-nav__link">
+      Server Setup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../install_jupyterhub/" title="Install JupyterHub" class="md-nav__link">
+      Install JupyterHub
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../DNS/" title="DNS Routing" class="md-nav__link">
+      DNS Routing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ssl/" title="SSL Certificates" class="md-nav__link">
+      SSL Certificates
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cookie_secret_proxy_auth_token/" title="Cookie Secret and Proxy Auth Token" class="md-nav__link">
+      Cookie Secret and Proxy Auth Token
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../nginx_install/" title="Install Nginx" class="md-nav__link">
+      Install Nginx
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../nginx_config/" title="Nginx Configuration" class="md-nav__link">
+      Nginx Configuration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../jupyterhub_config/" title="JupyterHub Configuration" class="md-nav__link">
+      JupyterHub Configuration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../systemd/" title="System Service" class="md-nav__link">
+      System Service
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Google OAuth
+      </label>
+    
+    <a href="./" title="Google OAuth" class="md-nav__link md-nav__link--active">
+      Google OAuth
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Page Contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-google-oauth" class="md-nav__link">
+    Why Google OAuth?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-oauth-instance" class="md-nav__link">
+    Google OAuth Instance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-out-the-client-id-and-client-secret-from-the-downloaded-json-file" class="md-nav__link">
+    Pull out the client ID and client secret from the downloaded json file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-the-json-file-to-gitignore" class="md-nav__link">
+    Add the json file to .gitignore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#move-the-json-file-to-the-server" class="md-nav__link">
+    Move the json file to the server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-oauthenticator-package-on-the-server" class="md-nav__link">
+    Install the OAuthenticator package on the server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modify-jupyterhub_configpy" class="md-nav__link">
+    Modify jupyterhub_config.py
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart-jupyterhub-and-login" class="md-nav__link">
+    Restart JupyterHub and Login
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../login_page/" title="Custom Login Page" class="md-nav__link">
+      Custom Login Page
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cull_idle_servers/" title="Cull Idle Servers" class="md-nav__link">
+      Cull Idle Servers
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../periodic_maintenance/" title="Periodic Maintenance" class="md-nav__link">
+      Periodic Maintenance
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../renew_ssl_cert/" title="Renew SSL Certificate" class="md-nav__link">
+      Renew SSL Certificate
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-18" type="checkbox" id="nav-18">
+    
+    <label class="md-nav__link" for="nav-18">
+      Optional Extras
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-18">
+        Optional Extras
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../jupyterlab_default/" title="JupyterLab Default Interface" class="md-nav__link">
+      JupyterLab Default Interface
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../draw_dot_IO_extension/" title="Draw.IO extension" class="md-nav__link">
+      Draw.IO extension
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../github_extension/" title="GitHub Extension for JupyterLab" class="md-nav__link">
+      GitHub Extension for JupyterLab
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../nbgitpuller_plugin/" title="nbGitpuller Plugin" class="md-nav__link">
+      nbGitpuller Plugin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../nbgitpuller_defaut_url/" title="Defaut URL for nbGitpuller" class="md-nav__link">
+      Defaut URL for nbGitpuller
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../github_oauth/" title="GitHub Authentication" class="md-nav__link">
+      GitHub Authentication
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../building_docs/" title="Building the Docs" class="md-nav__link">
+      Building the Docs
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../useful_commands/" title="Useful Commands" class="md-nav__link">
+      Useful Commands
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Page Contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-google-oauth" class="md-nav__link">
+    Why Google OAuth?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#google-oauth-instance" class="md-nav__link">
+    Google OAuth Instance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-out-the-client-id-and-client-secret-from-the-downloaded-json-file" class="md-nav__link">
+    Pull out the client ID and client secret from the downloaded json file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-the-json-file-to-gitignore" class="md-nav__link">
+    Add the json file to .gitignore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#move-the-json-file-to-the-server" class="md-nav__link">
+    Move the json file to the server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-oauthenticator-package-on-the-server" class="md-nav__link">
+    Install the OAuthenticator package on the server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modify-jupyterhub_configpy" class="md-nav__link">
+    Modify jupyterhub_config.py
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart-jupyterhub-and-login" class="md-nav__link">
+    Restart JupyterHub and Login
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ProfessorKazarinoff/jupyterhub-ENGR114-2019Q4/edit/master/docs/google_oauth.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="google-authentication">Google Authentication</h1>
+<p>Now that we have JupyterHub running as a system service and we can log onto JupyterHub with the local PAM authenticator (regular Linux usernames and passwords), we are going to get into the weeds of getting the Google authenticator to work. </p>
+<div class="toc">
+<ul>
+<li><a href="#google-authentication">Google Authentication</a><ul>
+<li><a href="#why-google-oauth">Why Google OAuth?</a></li>
+<li><a href="#google-oauth-instance">Google OAuth Instance</a></li>
+<li><a href="#pull-out-the-client-id-and-client-secret-from-the-downloaded-json-file">Pull out the client ID and client secret from the downloaded json file</a></li>
+<li><a href="#add-the-json-file-to-gitignore">Add the json file to .gitignore</a></li>
+<li><a href="#move-the-json-file-to-the-server">Move the json file to the server</a></li>
+<li><a href="#install-the-oauthenticator-package-on-the-server">Install the OAuthenticator package on the server</a></li>
+<li><a href="#modify-jupyterhub_configpy">Modify jupyterhub_config.py</a></li>
+<li><a href="#restart-jupyterhub-and-login">Restart JupyterHub and Login</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="why-google-oauth">Why Google OAuth?</h2>
+<p>Why Google authenticator instead of local PAM authentication? Our college uses the Gmail suite for both staff and students. When students log onto their college email, they are logging into Gmail. Students can use Google Calendar and Google Drive with their college email account as well. So it would be convenient for students log into JuypterHub using the same Google login they use to access their college email, Google Drive and Calendar. </p>
+<p>It's just going to take a bit of work to get there.</p>
+<h2 id="google-oauth-instance">Google OAuth Instance</h2>
+<p>To allow students to use Google usernames and passwords to log into JupyterHub, the first thing we need to do is set up a Google OAuth instance. I set up a Google OAuth instance using my personal Gmail account, rather than my college Gmail account. Some parts of the Google Apps Suite are not available in my college profile, like YouTube and developer tabs. </p>
+<p>To obtain the Google OAuth credentials, log into the Google API console <a href="https://console.developers.google.com/">https://console.developers.google.com/</a> and select [Credentials] on the lefthand menu.</p>
+<p><img alt="Google oauth credentials" src="../images/google_oauth_credentials.png" /></p>
+<p>Next, we'll create a new OAuth credential under [Credentials] &rarr; [Create Credentials] &rarr; [OAuth client ID]:</p>
+<p><img alt="Google create credentials" src="../images/google_oauth_create_credentials.png" /></p>
+<p>Create a set of Google OAuth credentials using the following input:</p>
+<ul>
+<li>Authorized JavaScript origins: <code>https://mydomain.org</code></li>
+<li>Authorized redirect URIs: <code>https://mydomain.org/hub/oauth_callback</code></li>
+</ul>
+<p><img alt="Google js origins and callback url" src="../images/google_oauth_javascript_origins_redirect_uri.png" /></p>
+<p>After creating a new set of Google OAuth credentials, note the:</p>
+<ul>
+<li>client ID</li>
+<li>client secret</li>
+</ul>
+<p><img alt="Google client ID and secret" src="../images/google_oauth_client_id_and_secret.png" /></p>
+<p>The client ID and client secret strings will be included in our revised JupyterHub configuration.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In a previous JupyterHub deployment, I had trouble creating OAuth credentials in Google's developer console. The description of the problem and the solution is below. Note that in this deploymnet of JupyterHub, I am re-using a domain name, so this specific problem didn't crop up.</p>
+</div>
+<p>After clicking [Create] a problem surfaced. The Google OAuth dashboard noted that:</p>
+<blockquote>
+<p>Invalid Origin: domain must be added to the authorized domains list before submitting</p>
+</blockquote>
+<p><img alt="Google OAuth Dashboard Resistrictions" src="../images/google_oauth_restrictions.png" /></p>
+<p>Click the [authorized domains list] link and enter the domain name for the JupyterHub server in the text box under [Authorized domains].</p>
+<p><img alt="Google OAuth add scope" src="../images/google_oauth_add_scope.png" /></p>
+<p>Then click [Submit for verification] and [Save]. For some reason the authorize domains submit for verification step and save step took a couple tries and more than a couple minutes. I don't know if Google is doing a DNS lookup or what kind of verification steps they do - either way it took some time for the domain to be "verified".</p>
+<p><img alt="Google OAuth submit for verification" src="../images/google_oauth_submit_for_verification.png" /></p>
+<p>Once the domain is verified, go back to the [Credentials] &rarr; [Create Credentials] &rarr; [OAuth client ID] screen and try entering in the [Authorized JavaScript origins] and [Authorized redirect URIs] again.</p>
+<p><img alt="Google OAuth re_enter domain" src="../images/google_oauth_re_enter_domain.png" /></p>
+<p>The scary red [Invalid Origin] should be absent as long as the domain has been verified.</p>
+<h2 id="pull-out-the-client-id-and-client-secret-from-the-downloaded-json-file">Pull out the client ID and client secret from the downloaded json file</h2>
+<p>For this JupyterHub deployment, I also downloaded the .json file that contains the client ID and client secret from Google's OAuth dashboard. You can access the .json file containing the client ID and client secret by clicking the [Credentials] tab and find the credential you just created. On the right hand side is a download icon. Clicking this icon downloads the .json file that contains our client ID and client secret.</p>
+<p><img alt="Google OAuth Credentials Tab" src="../images/google_oauth_credentials_tab.png" /></p>
+<p><img alt="Google OAuth Credentials Tab" src="../images/google_oauth_credentials_tab_download_json.png" /></p>
+<p>After the .json file downloads, you can open the .json file in a web browser or a code editor. It has a structure that looks like this:</p>
+<pre><code class="text">{
+    &quot;web&quot;: {
+        &quot;client_id&quot;: &quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com&quot;,
+        &quot;project_id&quot;: &quot;intense-agency-89620&quot;,
+        &quot;auth_uri&quot;: &quot;https://accounts.google.com/o/oauth2/auth&quot;,
+        &quot;token_uri&quot;: &quot;https://oauth2.googleapis.com/token&quot;,
+        &quot;auth_provider_x509_cert_url&quot;: &quot;https://www.googleapis.com/oauth2/v1/certs&quot;,
+        &quot;client_secret&quot;: &quot;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&quot;,
+        &quot;redirect_uris&quot;: [
+            &quot;https://mydomain.org/hub/oauth_callback&quot;
+        ]
+    }
+}
+</code></pre>
+
+<p>On a local computer, rename the json file to <code>google_oauth_credentials.json</code>. We can use Python and the <code>json</code> module from the Standard Library to pull out the <code>"client_id"</code> and <code>"client_secret"</code> from the json file. Make sure the json file is in the same directory on your local computer where the Python code is run.</p>
+<p>Try the following Python code on your local computer:</p>
+<pre><code class="python">with open('google_oauth_credentials.json') as f:
+    google_oauth = json.load(f)
+
+print(google_oauth['web']['client_id'])
+print(google_oauth['web']['client_secret']
+</code></pre>
+
+<p>The output will be the <code>'client_id'</code> and <code>'client_secret'</code> from the json file.</p>
+<h2 id="add-the-json-file-to-gitignore">Add the json file to .gitignore</h2>
+<p>Now we need to move the <code>google_oauth_credentials.json</code> to the sever, but before we do: </p>
+<p><strong>MAKE SURE TO ADD THE FILE TO .gitignore !!! WE DON'T WANT PRIVATE CREDENTIALS STORED ON GITHUB !!!</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Important!</strong> Do not save private credentials in a public GitHub repository! Keep your credentials private!</p>
+</div>
+<p>In <code>.gitignore</code> on my local machine, I added the following lines at the end. Note that locally this file is saved at <code>projectroot/etc/jupyterhub/google_oauth_credentials.json</code></p>
+<pre><code class="text"># .gitignore
+
+...
+
+## Config files
+
+/etc/jupyterhub/college_id.json
+/etc/jupyterhub/google_oauth_credentials.json
+
+...
+
+</code></pre>
+
+<h2 id="move-the-json-file-to-the-server">Move the json file to the server</h2>
+<p>Now move the .json file over to the server and save it in the <code>/etc/jupyterhub/</code> directory. I used FileZilla to move the json file over to the server instead of using copy-paste into PuTTY and the nano code editor.</p>
+<p><img alt="filezilla settings" src="../images/filezilla_download_page.png" /></p>
+<p>Open FileZilla and select [File] &rarr; [Site Manager... ]. Enter in the server's IP address and select the SSH key used to log into the server. Make sure to select:</p>
+<ul>
+<li>[Protocol:] <code>SFTP - SSH File Transfer Protocol</code></li>
+<li>[Host:] <code>IP address of server</code></li>
+<li>[Port]: <code>22</code></li>
+<li>[Logon Type:] <code>Key file</code></li>
+<li>[User:] <code>peter</code> (or your non-root sudo user on the server)</li>
+<li>[Key file:] [Browse...] and find the SSH key used to log onto the server</li>
+</ul>
+<p><img alt="FileZilla Site manager" src="../images/fz_site_manager.png" /></p>
+<p>Click [Connect] to connect to the server with FileZilla.</p>
+<p>Move both file browsers to <code>/etc/jupyterhub</code>. On the local computer, the .json file is present. On the server, only the jupyterhub_config.py file is present.</p>
+<p><img alt="FileZilla Files 1" src="../images/fz_move_files.png" /></p>
+<p>Drag the .json file over to the server side of the window.</p>
+<p><img alt="FileZilla Files 12" src="../images/fz_file_moved.png" /></p>
+<p>Now that the .json file is saved on the server, you can close the FileZilla window.</p>
+<p>After the .json file is saved on the server, the contents of <code>/etc/jupyterhub</code> on the server should be:</p>
+<pre><code class="text">/etc/jupyterhub/
+├── google_oauth_credentials.json
+└── jupyterhub_config.py
+</code></pre>
+
+<p>Let's also build a <code>college_id.json</code> file that contains our college domain and college name. We can pull these strings out with Python's json module too. </p>
+<p>The <code>college_id.json</code> file has the format below:</p>
+<pre><code class="text">{
+    &quot;domain&quot;: &quot;mycollege.edu&quot;,
+    &quot;name&quot;: &quot;My College Name&quot;
+}
+
+</code></pre>
+
+<p>We can pull out the <code>"domain"</code> and <code>"name"</code> from <code>college_id.json</code> with the following Python code:</p>
+<pre><code class="python">with open('/etc/jupyterhub/college_id.json') as f:
+    college_id = json.load(f)
+c.LocalGoogleOAuthenticator.hosted_domain = college_id['domain']
+c.LocalGoogleOAuthenticator.login_service = college_id['name']
+</code></pre>
+
+<p>Move the <code>college_id.json</code> file onto the server with FileZilla.</p>
+<p>After the files are moved over, you should be able to see a couple files in the <code>/etc/jupyterhub</code> directory on the server.</p>
+<pre><code class="text">$ cd /etc/jupyterhub
+$ ls
+college_id.json                jupyterhub.sqlite
+google_oauth_credentials.json  jupyterhub_config.py
+</code></pre>
+
+<h2 id="install-the-oauthenticator-package-on-the-server">Install the OAuthenticator package on the server</h2>
+<p>Before our JupyterHub server can use Google authentication, we first need to install the OAuthenticator Python package on the server.</p>
+<pre><code class="text">$ sudo apt-get update
+$ sudo apt-get upgrade
+$ conda activate jupyterhubenv
+(jupyterhubenv)$ pip install oauthenticator
+</code></pre>
+
+<h2 id="modify-jupyterhub_configpy">Modify jupyterhub_config.py</h2>
+<p>Once we get our Google OAuth credentials uploaded onto the server, and we have installed the oauthenticator package, we need to edit <code>jupyterhub_conf.py</code> again. Note how the <code>google_oauth_credentials.json</code> and <code>college_id.json</code> files are used in the configuration and how the json module is imported at the top. </p>
+<pre><code class="python"># /etc/jupyterhub/jupyterhub_config.py
+
+# used to read the json google oauth config file
+import json
+
+# For Google OAuth
+from oauthenticator.google import LocalGoogleOAuthenticator   # $ pip install oauthenticator
+
+
+c = get_config()
+
+c.JupyterHub.log_level = 10
+c.Spawner.cmd = '/opt/miniconda3/envs/jupyterhubenv/bin/jupyterhub-singleuser'
+
+# Cookie Secret Files
+c.JupyterHub.cookie_secret_file = '/srv/jupyterhub/jupyterhub_cookie_secret'
+c.ConfigurableHTTPProxy.auth_token = '/srv/jupyterhub/proxy_auth_token'
+
+# Google OAuth Login
+c.JupyterHub.authenticator_class = LocalGoogleOAuthenticator
+
+with open('/etc/jupyterhub/google_oauth_credentials.json') as f:
+    google_oauth = json.load(f)
+c.LocalGoogleOAuthenticator.client_id = google_oauth['web']['client_id']
+c.LocalGoogleOAuthenticator.client_secret = google_oauth['web']['client_secret']
+
+c.LocalGoogleOAuthenticator.oauth_callback_url = google_oauth[&quot;web&quot;][&quot;redirect_uris&quot;][0]
+c.LocalGoogleOAuthenticator.create_system_users = True
+c.Authenticator.add_user_cmd = ['adduser', '-q', '--gecos', '&quot;&quot;', '--disabled-password', '--force-badname']
+with open('/etc/jupyterhub/college_id.json') as f:
+    college_id = json.load(f)
+c.LocalGoogleOAuthenticator.hosted_domain = [college_id['domain']]   # replace with mycollege.edu, must be a list of strings
+c.LocalGoogleOAuthenticator.login_service = college_id['name']  # replace with 'My College Name'
+
+## Extra Configuration
+
+# Maximum number of concurrent servers that can be active at a time
+c.JupyterHub.active_server_limit = 26
+
+# Maximum number of concurrent users that can be spawning at a time
+c.JupyterHub.concurrent_spawn_limit = 13
+
+# Whether to shutdown the proxy when the Hub shuts down.
+c.JupyterHub.cleanup_proxy = True
+
+# Whether to shutdown single-user servers when the Hub shuts down.
+c.JupyterHub.cleanup_servers = True
+
+## Users
+c.Authenticator.admin_users = {'peter','peter.kazarinoff'}
+</code></pre>
+
+<p>This little line:</p>
+<pre><code class="python">c.Authenticator.add_user_cmd = ['adduser', '-q', '--gecos', '&quot;&quot;', '--disabled-password', '--force-badname']
+</code></pre>
+
+<p>was a real gottacha! Our college email addresses are in the form:</p>
+<p><code>firstname.lastname@college.edu</code></p>
+<p>When a student logs in, JupyterHub tries to create a new Linux user with a dot <code>.</code> in their username. Usernames with <code>.</code> doesn't work on Linux. I tried to create a new Linux user with a dot in their username, and the terminal asked me to use the <code>--force-badname</code> flag. So <code>--force-badname</code> is what we'll add to the <code>c.Authenticator.add_user_cmd</code> list. Otherwise, users (students) will be able to authenticate with Google, but they won't get a new user account on the server, and they won't be able to run notebooks or Python code.</p>
+<h2 id="restart-jupyterhub-and-login">Restart JupyterHub and Login</h2>
+<p>Restart JupyterHub and browse to the web address attached to the server.</p>
+<pre><code class="text">$ sudo systemctl stop jupyterhub
+$ sudo systemctl start jupyterhub
+$ sudo systemctl status jupyterhub
+# [Ctrl + c] to exit
+</code></pre>
+
+<pre><code class="text">● jupyterhub.service - JupyterHub
+   Loaded: loaded (/etc/systemd/system/jupyterhub.service; disabled; vendor preset: enabled)
+   Active: active (running) since Fri 2019-02-08 18:42:23 UTC; 6s ago
+ Main PID: 9178 (jupyterhub)
+    Tasks: 8 (limit: 1152)
+</code></pre>
+
+<p>If JupyterHub is running OK and there were no errors after the revisions to the <code>jupyterhub_config.py</code> file, open a web browser and try to Log in.</p>
+<p>The login window should now look something like:</p>
+<p><img alt="Sign in with Google" src="../images/sign_in_with_google.PNG" /></p>
+<p>We can log in with our Google user name and password (college username and password). </p>
+<p>Pretty sweet!</p>
+<p>Note the Jupyter notebook file browser is empty after we log on. A new user was created by JupyterHub when we logged in. This new user's home directory is empty.</p>
+<p><img alt="Jupyter notebook file browser empty" src="../images/nb_notebook_list_empty.png" /></p>
+<p>If you added your college username was added to the <code>c.Authenticator.admin_users = { }</code> set in <code>jupyterhub_config.py</code>, you will be able to see an [Admin] tab when you click [Control Panel] in the Jupyter notebook file browser. If you click [Admin], you should see three users in the user list.</p>
+<p><img alt="Jupyter Notebook admin three users" src="../images/nb_admin_three_users.png" /></p>
+<p>In the admin screen, you can shut down the individual notebook servers and logout.</p>
+<p>After we log in using our college username and password, we can see if JupyterHub created a new user (with our college username) on the server.</p>
+<p>The command below produces a long list of users. This long list contains the non-root sudo user <code>peter</code> and the Google authenticated user (college username).</p>
+<pre><code class="text">$ awk -F':' '{ print $1}' /etc/passwd
+....
+uuidd
+dnsmasq
+landscape
+sshd
+pollinate
+peter
+gabby
+peter.kazarinoff
+</code></pre>
+
+<p><br></p>
+<h2 id="summary">Summary</h2>
+<p>This was a big section and we got a lot accomplished. At the end of it, we have a running JupyterHub server that allows students and faculty to log into JupyterHub using their college useranmes and passwords. We accomplished this in a couple steps:</p>
+<ul>
+<li>Create a Google OAuth instance in the Google Developer's console. Download and save the .json file that stores the client ID and client secret.</li>
+<li>Figure out how to pull the client ID and secret out of the .json file using Python's json module from the Python Standard Library.</li>
+<li>Add the .json file to .gitignore so that our private client ID and private client secret are not made public.</li>
+<li>Move the .json file over to the server with FileZilla.</li>
+<li>Create a <code>college_id.json</code> file and move it over to the server with FileZilla.</li>
+<li>Modify the <code>jupyterhub_config.py</code> file. Add Google authentication to our JupyterHub configuration.</li>
+<li>On the server, <code>pip</code> install <strong>oauthenticator</strong> into the virtual environment that runs JupyterHub.</li>
+<li>Restart JupyterHub and login with a Google username and password.</li>
+<li>Use the JuputerHub admin and the terminal to see the new user JupyterHub created.</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<p>The next step is to make the login screen look like our college login screen. Right now, students see a orange button on the login screen. Next, we'll mess around with some templates, html and css to get our JupyterHub login screen to look a lot more like our college login screen.</p>
+<p><br></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../systemd/" title="System Service" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                System Service
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../login_page/" title="Custom Login Page" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Custom Login Page
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 Peter D. Kazarinoff
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
