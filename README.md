@@ -4,7 +4,7 @@ This repo contains the shared files used to create a JupyterHub server on Digita
 
 ## Deployment Docs
 
-Docs for this deployment of JupyterHub in Fall 2018 will eventually be found here:
+Docs for this deployment of JupyterHub in Fall 2019 can be found here:
 
  > [https://professorkazarinoff.github.io/jupyterhub-ENGR114-2019Q4/](https://professorkazarinoff.github.io/jupyterhub-ENGR114-2019Q4)
 
@@ -28,17 +28,18 @@ For another deployment of JupyterHub on Digital Ocean with Nginx proxy. See thes
 4. Log into DO server as non-root sudo user ```peter``` with PuTTY and SSH keys
 5. Install Miniconda into /opt on the server
 6. Create a conda env with Python 3.7
-7. Conda install packages including numpy, pandas, matplotlib, jupyter, notebook, scipy, sympy, pyserial and xlrd
+7. Conda install numpy, pandas, matplotlib, jupyter, notebook, scipy, sympy, pyserial and xlrd
 8. Conda install -c conda-forge jupyterhub pint
 9. Run JupyterHub (for just a minute) without SSL to see if it works. Go to the DO server IP address and start a notebook.
-10. Link a Google domain to DO name servers. In the Digital Ocean DNS dashboard, link domain name to DO server.
+10. Link Google domain to Digital Ocean DNS servers. In the Digital Ocean DNS dashboard, link domain name to Digital Ocean server.
 11. Create SSL keys with Let's Encrypt
 12. Modify jupyterhub_config.py to include SSL keys
 13. Install Nginx on server
 14. Modify Nginx config to move traffic to JupyterHub and use SSL cirts
 15. Run JupyterHub as a system service using systemd
-16. Start Nginx and JupyterHub. Should be able to go to https://mydomain.org and start, run and save a Jupyter notebook.
+16. Restart Nginx and JupyterHub. Should be able to go to https://mydomain.org and start, run and save a Jupyter notebook.
 17. Add authentication for Google login usernames and passwords
 18. Create a custom login page
 19. Pull assignments and notes down from GitHub each time a student logs into JupyterHub.
-20. Celebrate!
+20. Integrate cull idle servers script
+21. Celebrate!
